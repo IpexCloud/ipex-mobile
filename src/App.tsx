@@ -1,13 +1,13 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import 'react-native-gesture-handler'
+import * as React from 'react'
 
-const App = () => {
-  // TODO: add screens
+import { NavigationContainer } from '@react-navigation/native'
+import Navigatation from './navigation'
+
+export default function App() {
   return (
-    <View>
-      <Text>Test</Text>
-    </View>
+    <NavigationContainer>
+      <Navigatation />
+    </NavigationContainer>
   )
 }
-
-export default App
