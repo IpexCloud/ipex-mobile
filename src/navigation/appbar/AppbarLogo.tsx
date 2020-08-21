@@ -17,7 +17,7 @@ export default function AppbarLogo() {
 
 const styles = StyleSheet.create({
   image: {
-    width: '30%',
-    height: '80%',
+    width: 80,
+    height: 30,
   },
 })

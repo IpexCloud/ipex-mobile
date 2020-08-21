@@ -17,6 +17,7 @@ export function AppbarNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
+          height: 120,
           backgroundColor: colors.background,
         },
         headerTintColor: colors.primaryText,

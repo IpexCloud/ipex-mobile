@@ -17,6 +17,7 @@ export function TabsNavigator() {
   return (
     <Tab.Navigator
       tabBarOptions={{
+        showLabel: false,
         activeTintColor: colors.primary,
         inactiveTintColor: colors.secondaryText,
       }}
@@ -26,15 +27,16 @@ export function TabsNavigator() {
         component={ContactsScreen}
         options={{
           tabBarLabel: 'Contacts',
-          tabBarIcon: ({ color, size }) => <Icon name="people-outline" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon name="people" color={color} size={size} />,
         }}
       />
+
       <Tab.Screen
         name="Callcenter"
         component={CallcenterScreen}
         options={{
           tabBarLabel: 'Callcenter',
-          tabBarIcon: ({ color, size }) => <Icon name="call-outline" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Icon name="headset" color={color} size={size} />,
         }}
       />
     </Tab.Navigator>

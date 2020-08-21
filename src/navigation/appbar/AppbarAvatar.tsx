@@ -32,7 +32,7 @@ export default function AppbarAvatar(props: Props) {
 
 const styles = StyleSheet.create({
   avatar: {
-    marginHorizontal: 10,
+    marginLeft: 10,
   },
   badge: {
     position: 'absolute',

@@ -27,12 +27,12 @@ export default function DrawerContent(props) {
         <DrawerItem
           icon={({ color, size }) => <Icon name="settings-outline" color={color} size={size} />}
           label="Callcenter settings"
-          onPress={() => {}}
+          onPress={() => { }}
         />
         <DrawerItem
           icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
           label="Logout"
-          onPress={() => {}}
+          onPress={() => { }}
         />
       </View>
     </DrawerContentScrollView>
@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   caption: {
-    lineHeight: 14,
+    lineHeight: 24,
   },
 })
