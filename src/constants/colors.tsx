@@ -1,9 +1,9 @@
 export default {
-  primary: '#81BA1D',
+  primary: '#AFBF27',
   primaryText: '#191C1F',
-  secondaryText: '#737373',
+  secondaryText: '#666666',
   background: 'white',
-  danger: '#EA4335',
+  danger: '#F53C40',
 
   // DARK THEME
   // primary: '#81BA1D',
