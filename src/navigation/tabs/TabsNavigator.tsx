@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import colors from '../../constants/colors'
 import CallcenterScreen from '../../screens/CallcenterScreen'
-import ContactsScreen from '../../screens/ContactsScreen'
+import ContactsScreen from '../../screens/Contacts/Contacts'
 
 export type TabsParamList = {
   Contacts: undefined

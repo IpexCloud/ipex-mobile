@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Avatar, Badge } from 'react-native-elements'
+import { Avatar } from 'react-native-elements'
 import { StyleSheet } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CompositeNavigationProp } from '@react-navigation/native'
@@ -15,28 +15,24 @@ type Props = {
   >
 }
 
-export default function AppbarAvatar(props: Props) {
+const styles = StyleSheet.create({
+  avatar: {
+    marginLeft: 10,
+  },
+})
+
+const AppbarAvatar = (props: Props) => {
   return (
     <Avatar
       rounded
       containerStyle={styles.avatar}
       onPress={() => props.navigation.toggleDrawer()}
       source={{
-        uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+        uri:
+          'https://thumbs.dreamstime.com/b/call-center-agent-isolated-white-background-57688768.jpg',
       }}
-    >
-      <Badge status="success" containerStyle={styles.badge} />
-    </Avatar>
+    />
   )
 }
 
-const styles = StyleSheet.create({
-  avatar: {
-    marginLeft: 10,
-  },
-  badge: {
-    position: 'absolute',
-    top: -4,
-    right: -4,
-  },
-})
+export default AppbarAvatar
