@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { remove as removeDiacritics } from 'diacritics'
 
 import { useContactsService, ContactsServiceData } from '../../services'
@@ -14,7 +14,7 @@ type ContactsOperations = {
 type ContactsModels = {
   activeContact: string
   searchText: string
-  contacts: Architecture.ServiceState<ContactsServiceData>
+  contacts: Architecture.ServiceState & { data: ContactsServiceData }
 }
 
 const normalize = (text: string) => removeDiacritics(text.toLowerCase())
@@ -34,7 +34,13 @@ const useContacts: Architecture.ConcernSeparationHook<
 > = () => {
   const [activeContact, setActiveContact] = useState('')
   const [searchText, setSearchText] = useState('')
-  const { data, error, loading } = useContactsService()
+  const [data, setData] = useState<ContactsServiceData>([])
+
+  const [{ queries }, { error, loading }] = useContactsService()
+
+  useEffect(() => {
+    queries.getContacts().then((contacts) => setData(contacts))
+  }, [queries])
 
   const handleSearchTextChange = (text: string) => {
     setActiveContact('')

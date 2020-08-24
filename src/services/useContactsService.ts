@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import { Architecture } from '../lib/types'
 
 const _CONTACTS_MOCK_ = [
@@ -32,26 +30,23 @@ const _CONTACTS_MOCK_ = [
 
 export type ContactsServiceData = any[]
 
-const useContactsService: Architecture.ServiceHook<ContactsServiceData> = () => {
-  const [state, setState] = useState<{ loading: boolean; error: any; data: any }>({
-    data: [],
-    error: null,
-    loading: true,
-  })
+export type ContactsQueries = {
+  getContacts: () => Promise<ContactsServiceData>
+}
 
-  useEffect(() => {
-    setTimeout(
-      () =>
-        setState({
-          data: _CONTACTS_MOCK_,
-          error: null,
-          loading: false,
-        }),
-      2000
-    )
-  }, [])
+const useContactsService: Architecture.ServiceHook<ContactsQueries, {}> = () => {
+  const getContacts = (): Promise<ContactsServiceData> =>
+    new Promise((resolve) => setTimeout(() => resolve(_CONTACTS_MOCK_), 2000))
 
-  return state
+  return [
+    {
+      queries: {
+        getContacts,
+      },
+      commands: {},
+    },
+    { error: null, loading: false },
+  ]
 }
 
 export { useContactsService }

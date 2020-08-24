@@ -8,11 +8,18 @@ export namespace Architecture {
 
   export type ServiceError = any
 
-  export type ServiceState<T> = {
+  export type ServiceState = {
     loading: boolean
     error: ServiceError
-    data: T
   }
 
-  export type ServiceHook<T> = () => ServiceState<T>
+  export type Service<Q, C> = [
+    {
+      queries: Q
+      commands: C
+    },
+    ServiceState
+  ]
+
+  export type ServiceHook<Q, C> = () => Service<Q, C>
 }
