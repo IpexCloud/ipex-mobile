@@ -31,7 +31,7 @@ const Contacts = () => {
       <View style={styles.container}>
         <ScreenTitle text="Contacts" />
         <SearchBar
-          placeholder="Vyhledat kontakt"
+          placeholder="Search contacts"
           value={models.searchText}
           onChangeText={operations.handleSearchTextChange}
         />

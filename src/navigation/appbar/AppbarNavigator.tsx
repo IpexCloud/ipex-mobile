@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import AppbarAvatar from './AppbarAvatar'
 import AppbarLogo from './AppbarLogo'
 import colors from '../../constants/colors'
+import layout from '../../constants/layout'
 import { TabsNavigator } from '../tabs/TabsNavigator'
 
 export type AppbarParamList = {
@@ -17,7 +18,7 @@ export function AppbarNavigator() {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          height: 120,
+          height: layout.window.height / 10,
           backgroundColor: colors.background,
         },
         headerTintColor: colors.primaryText,

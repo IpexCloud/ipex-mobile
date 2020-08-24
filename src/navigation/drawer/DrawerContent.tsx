@@ -15,7 +15,7 @@ export default function DrawerContent(props) {
             size="medium"
             rounded
             source={{
-              uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+              uri: 'https://w5insight.com/wp-content/uploads/2014/07/placeholder-user-400x400.png',
             }}
           />
           <Text h4 style={styles.title}>
@@ -25,14 +25,9 @@ export default function DrawerContent(props) {
         </View>
         <Divider style={{ backgroundColor: colors.secondaryText, marginVertical: '5%' }} />
         <DrawerItem
-          icon={({ color, size }) => <Icon name="settings-outline" color={color} size={size} />}
-          label="Callcenter settings"
-          onPress={() => { }}
-        />
-        <DrawerItem
           icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
           label="Logout"
-          onPress={() => { }}
+          onPress={() => {}}
         />
       </View>
     </DrawerContentScrollView>

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { ActivityIndicator, StyleSheet } from 'react-native'
 import { Image } from 'react-native-elements'
+import layout from '../../constants/layout'
 
 export default function AppbarLogo() {
   return (
@@ -17,7 +18,7 @@ export default function AppbarLogo() {
 
 const styles = StyleSheet.create({
   image: {
-    width: 80,
-    height: 30,
+    width: layout.window.width / 5,
+    height: layout.window.height / 10,
   },
 })
