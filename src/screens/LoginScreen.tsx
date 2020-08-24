@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { StyleSheet, View, LayoutAnimation, UIManager, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, UIManager, KeyboardAvoidingView, Text } from 'react-native'
 import { Input, Button, Icon, Image } from 'react-native-elements'
 
+import { useFetch } from 'use-http'
 import colors from '../constants/colors'
 import layout from '../constants/layout'
 
@@ -11,20 +12,18 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 
 export default function LoginScreen(props) {
   const [{ email, password }, setAuth] = React.useState({ email: '', password: '' })
-  const [isLoading, setLoading] = React.useState(false)
-  const [error, setError] = React.useState(null)
+  const { post, loading, response, error } = useFetch('https://restapi-devel.ipex.cz/v1/sso/login')
 
-  function login() {
-    setLoading(true)
-    // Simulate an API call
-    setTimeout(() => {
-      LayoutAnimation.easeInEaseOut()
-      setLoading(false)
-    }, 1500)
+  const handleLogin = async () => {
+    const data = await post({ email, password })
+    if (response.ok) {
+      console.log('Res', data)
+    }
   }
-
   return (
     <View style={styles.screen}>
+      {error && <Text>Errorik nastal</Text>}
+      {loading && <Text>Loading...</Text>}
       <View>
         <KeyboardAvoidingView contentContainerStyle={styles.loginContainer} behavior="position">
           <View style={styles.logoContainer}>
@@ -73,7 +72,7 @@ export default function LoginScreen(props) {
               }}
               inputStyle={{ marginLeft: 10 }}
               placeholder={'Password'}
-              onSubmitEditing={login}
+              onSubmitEditing={handleLogin}
               onChangeText={(text) => setAuth({ password: text, email })}
             />
 
@@ -81,10 +80,10 @@ export default function LoginScreen(props) {
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
               title="Login"
-              onPress={login}
+              onPress={handleLogin}
               titleStyle={styles.buttonTitleStyle}
-              loading={isLoading}
-              disabled={isLoading}
+              loading={loading}
+              disabled={loading}
             />
           </View>
         </KeyboardAvoidingView>

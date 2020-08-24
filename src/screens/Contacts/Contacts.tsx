@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { Button } from 'react-native-elements'
+import { Button, Text } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { ContactListItem } from '../../components'
@@ -36,7 +36,8 @@ const Contacts = () => {
           onChangeText={operations.handleSearchTextChange}
         />
         <View>
-          {models.contacts.map((contact) => (
+          {models.contacts.loading && <Text h4>Loading...</Text>}
+          {models.contacts.data.map((contact) => (
             <ContactListItem
               key={contact.id}
               name={contact.name}

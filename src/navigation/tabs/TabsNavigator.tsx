@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import colors from '../../constants/colors'
 import CallcenterScreen from '../../screens/CallcenterScreen'
-import ContactsScreen from '../../screens/Contacts/Contacts'
+import { Contacts } from '../../screens'
 
 export type TabsParamList = {
   Contacts: undefined
@@ -24,7 +24,7 @@ export function TabsNavigator() {
     >
       <Tab.Screen
         name="Contacts"
-        component={ContactsScreen}
+        component={Contacts}
         options={{
           tabBarLabel: 'Contacts',
           tabBarIcon: ({ color, size }) => <Icon name="people" color={color} size={size} />,
