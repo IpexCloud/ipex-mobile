@@ -1,5 +1,5 @@
 export namespace Architecture {
-  export type ConcernSeparationHook<O extends {}, M extends {}, T> = (
+  export type ConcernSeparationHook<O extends {}, M extends {}, T = void> = (
     options: T
   ) => {
     operations: O

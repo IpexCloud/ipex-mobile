@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { useLoginService } from '../../services'
+
 import { Architecture } from '../../lib/types'
 
 type LoginOperations = {
@@ -15,15 +17,16 @@ type LoginModels = {
   login: Architecture.ServiceState
 }
 
-const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels, void> = () => {
+const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels> = () => {
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
   })
-  // const [{queries, commands}] = useLoginService()
+  const [{ commands }, loginState] = useLoginService()
 
   const handleLogin = () => {
-    // commands.login
+    // TODO push to global state
+    commands.login(credentials).then(d => console.log("Login data", d))
   }
 
   const updateCredentials = (data: { email: string } | { password: string }) =>
@@ -36,10 +39,7 @@ const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels,
     },
     models: {
       credentials,
-      login: {
-        loading: false,
-        error: null,
-      },
+      login: loginState
     },
   }
 }

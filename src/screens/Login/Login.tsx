@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, View, UIManager, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, View, UIManager, KeyboardAvoidingView, Text } from 'react-native'
 import { Input, Button, Icon, Image } from 'react-native-elements'
 
 import useLogin from './useLogin'
@@ -68,7 +68,6 @@ const Login = () => {
               }}
             />
           </View>
-
           <View style={styles.formContainer}>
             <Input
               leftIcon={
@@ -108,7 +107,6 @@ const Login = () => {
               onSubmitEditing={operations.handleLogin}
               onChangeText={(text) => operations.updateCredentials({ password: text })}
             />
-
             <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
@@ -118,6 +116,7 @@ const Login = () => {
               loading={models.login.loading}
               disabled={models.login.loading}
             />
+            {models.login.error && <Text>Erro occured: {models.login.error}</Text>}
           </View>
         </KeyboardAvoidingView>
       </View>
@@ -125,4 +124,4 @@ const Login = () => {
   )
 }
 
-export { Login }
+export default Login

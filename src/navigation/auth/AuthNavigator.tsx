@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import LoginScreen from '../../screens/LoginScreen'
+
+import { Login } from '../../screens/'
 import colors from '../../constants/colors'
 
 export type AuthParamList = {
@@ -9,12 +10,12 @@ export type AuthParamList = {
 
 const AuthStackNavigator = createStackNavigator<AuthParamList>()
 
-export function AuthNavigator() {
+const AuthNavigator = () => {
   return (
     <AuthStackNavigator.Navigator>
       <AuthStackNavigator.Screen
         name="Login"
-        component={LoginScreen}
+        component={Login}
         options={{
           headerTitle: '',
           headerTransparent: true,
@@ -26,3 +27,5 @@ export function AuthNavigator() {
     </AuthStackNavigator.Navigator>
   )
 }
+
+export default AuthNavigator

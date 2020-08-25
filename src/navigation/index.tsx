@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 
-import { AuthNavigator } from './auth/AuthNavigator'
+import AuthNavigator from './auth/AuthNavigator'
 import { DrawerNavigator } from './drawer/DrawerNavigator'
 
 export default function AppNavigator() {

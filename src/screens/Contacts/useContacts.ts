@@ -29,8 +29,7 @@ const filterContacts = (searchText: string) => (contact: any) => {
 
 const useContacts: Architecture.ConcernSeparationHook<
   ContactsOperations,
-  ContactsModels,
-  void
+  ContactsModels
 > = () => {
   const [activeContact, setActiveContact] = useState('')
   const [searchText, setSearchText] = useState('')
