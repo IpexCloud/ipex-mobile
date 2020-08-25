@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import { useLoginService } from '../../services'
+import { useGlobalDispatch } from '../../context'
 
 import { Architecture } from '../../lib/types'
 
@@ -18,6 +19,7 @@ type LoginModels = {
 }
 
 const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels> = () => {
+  const dispatch = useGlobalDispatch()
   const [credentials, setCredentials] = useState({
     email: '',
     password: '',
@@ -25,8 +27,10 @@ const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels>
   const [{ commands }, loginState] = useLoginService()
 
   const handleLogin = () => {
-    // TODO push to global state
-    commands.login(credentials).then((d) => console.log('Login data', d))
+    commands.login(credentials).then(loginData => loginData && dispatch({
+      type: 'auth/login',
+      payload: loginData
+    }))
   }
 
   const updateCredentials = (data: { email: string } | { password: string }) =>

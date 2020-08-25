@@ -44,12 +44,12 @@ const Contacts = () => {
           <Button
             buttonStyle={styles.actionButton}
             icon={<Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />}
-            title="Call now"
+            title="Zavolat"
             onPress={() => operations.handleCallNow(contact.number)}
           />
           <Button
             buttonStyle={styles.actionButton}
-            title="Call PBX"
+            title="Zavolat přes PBX"
             icon={<Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />}
           />
         </>
@@ -61,9 +61,9 @@ const Contacts = () => {
   return (
     <TouchableWithoutFeedback onPress={operations.handleContainerPress}>
       <View style={styles.container}>
-        <ScreenTitle text="Contacts" />
+        <ScreenTitle text="Kontakty" />
         <SearchBar
-          placeholder="Search contacts"
+          placeholder="Vyhledat kontakt..."
           value={models.searchText}
           onChangeText={operations.handleSearchTextChange}
         />

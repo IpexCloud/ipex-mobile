@@ -3,16 +3,15 @@ import { NavigationContainer } from '@react-navigation/native'
 
 import AuthNavigator from './auth/AuthNavigator'
 import { DrawerNavigator } from './drawer/DrawerNavigator'
+import { useGlobalContext } from '../context'
 
 export default function AppNavigator() {
-  const isAuth = true
-  const didTryAutoLogin = true
+  const { auth } = useGlobalContext()
+  const isAuth = !!auth.authToken
 
   return (
     <NavigationContainer>
-      {isAuth && <DrawerNavigator />}
-      {!isAuth && didTryAutoLogin && <AuthNavigator />}
-      {/* {!isAuth && !didTryAutoLogin && <StartupScreen />} */}
+      {isAuth ? <DrawerNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   )
 }

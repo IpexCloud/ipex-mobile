@@ -19,16 +19,16 @@ const Callcenter = () => {
 
   return (
     <View style={styles.screen}>
-      <ScreenTitle text="Callcentrum" />
+      <ScreenTitle text="Call centrum" />
       {models.pauses.loading || models.agent.loading || !models.agent.data ? (
         <ActivityIndicator size="large" color={colors.primary} />
       ) : (
-        <CallcenterSettings
-          pauseOptions={models.pauses.data}
-          agent={models.agent.data}
-          onPauseChange={operations.handlePauseChange}
-        />
-      )}
+          <CallcenterSettings
+            pauseOptions={models.pauses.data}
+            agent={models.agent.data}
+            onPauseChange={operations.handlePauseChange}
+          />
+        )}
     </View>
   )
 }

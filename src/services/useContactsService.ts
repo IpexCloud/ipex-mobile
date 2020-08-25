@@ -9,23 +9,19 @@ const _CONTACTS_MOCK_ = [
   {
     id: 2,
     name: 'Sebo Mach',
-    number: '+421768765453',
+    number: '+421758765453',
   },
   {
     id: 3,
-    name: 'Pepek Námorník',
-    number: '+421768765453',
+    name: 'Vladimír Čepo',
+    number: '+421748765453',
   },
   {
     id: 4,
-    name: 'Rest Inpeace',
-    number: '+421768765453',
+    name: 'Vlasta Novák',
+    number: '+421738765453',
   },
-  {
-    id: 5,
-    name: 'What Thefuck',
-    number: '+421768765453',
-  },
+
 ]
 
 export type ContactsServiceData = any[]
