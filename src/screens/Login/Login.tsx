@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   logoContainer: {
-    height: 150,
+    height: 200,
     backgroundColor: 'transparent',
     justifyContent: 'center',
   },
@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
   formContainer: {
     backgroundColor: colors.background,
     borderRadius: 10,
-    paddingTop: 32,
-    paddingBottom: 32,
+    margin: 30,
     alignItems: 'center',
     width: '90%',
   },
@@ -61,18 +60,12 @@ const Login = () => {
         <KeyboardAvoidingView contentContainerStyle={styles.loginContainer} behavior="position">
           <View style={styles.logoContainer}>
             <Image
-              style={{ width: layout.window.width * 0.4, height: layout.window.width * 0.2 }}
-              source={{
-                uri:
-                  'https://partneri.shoptet.cz/wp-content/uploads/2019/10/ipex-2019-rgb_ipex-color_400x400px.jpg',
-              }}
+              style={{ width: layout.window.width / 3, height: layout.window.width / 9 }}
+              source={require('../../../assets/ipex_logo.png')}
             />
           </View>
           <View style={styles.formContainer}>
             <Input
-              leftIcon={
-                <Icon name="mail-outline" type="ionicons" color={colors.secondaryText} size={25} />
-              }
               value={models.credentials.email}
               keyboardAppearance="light"
               autoFocus={false}
@@ -88,9 +81,6 @@ const Login = () => {
               onChangeText={(text) => operations.updateCredentials({ email: text })}
             />
             <Input
-              leftIcon={
-                <Icon name="lock-open" type="material" color={colors.secondaryText} size={25} />
-              }
               value={models.credentials.password}
               keyboardAppearance="light"
               autoCapitalize="none"
@@ -103,20 +93,20 @@ const Login = () => {
                 borderBottomColor: 'rgba(0, 0, 0, 0.38)',
               }}
               inputStyle={{ marginLeft: 10 }}
-              placeholder={'Password'}
+              placeholder={'Heslo'}
               onSubmitEditing={operations.handleLogin}
               onChangeText={(text) => operations.updateCredentials({ password: text })}
             />
             <Button
               buttonStyle={styles.button}
               containerStyle={styles.buttonContainer}
-              title="Login"
+              title="Přihlásit"
               onPress={operations.handleLogin}
               titleStyle={styles.buttonTitleStyle}
               loading={models.login.loading}
               disabled={models.login.loading}
             />
-            {models.login.error && <Text>Erro occured: {models.login.error}</Text>}
+            {models.login.error && <Text>Error occured: {models.login.error}</Text>}
           </View>
         </KeyboardAvoidingView>
       </View>
