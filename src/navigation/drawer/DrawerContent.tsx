@@ -4,9 +4,14 @@ import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Avatar, Text, Divider } from 'react-native-elements'
 
+import { useGlobalContext } from '../../context'
 import colors from '../../constants/colors'
 
 export default function DrawerContent(props) {
+  const {
+    auth: { firstName, lastName, email },
+  } = useGlobalContext()
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
@@ -15,18 +20,19 @@ export default function DrawerContent(props) {
             size="medium"
             rounded
             source={{
-              uri: 'https://w5insight.com/wp-content/uploads/2014/07/placeholder-user-400x400.png',
+              uri:
+                'https://thumbs.dreamstime.com/b/call-center-agent-isolated-white-background-57688768.jpg',
             }}
           />
           <Text h4 style={styles.title}>
-            Sebastian Mach
+            {firstName} {lastName}
           </Text>
-          <Text style={styles.caption}>IPEX a.s.</Text>
+          <Text style={styles.caption}>{email}</Text>
         </View>
         <Divider style={{ backgroundColor: colors.secondaryText, marginVertical: '5%' }} />
         <DrawerItem
           icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
-          label="Logout"
+          label="Odhlásit"
           onPress={() => {}}
         />
       </View>
