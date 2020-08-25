@@ -26,7 +26,7 @@ const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels>
 
   const handleLogin = () => {
     // TODO push to global state
-    commands.login(credentials).then(d => console.log("Login data", d))
+    commands.login(credentials).then((d) => console.log('Login data', d))
   }
 
   const updateCredentials = (data: { email: string } | { password: string }) =>
@@ -39,7 +39,7 @@ const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels>
     },
     models: {
       credentials,
-      login: loginState
+      login: loginState,
     },
   }
 }

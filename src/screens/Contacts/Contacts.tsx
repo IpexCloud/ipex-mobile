@@ -1,11 +1,17 @@
 import React from 'react'
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { Button, Text } from 'react-native-elements'
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native'
+import { Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 import { ContactListItem } from '../../components'
 import { SearchBar, ScreenTitle } from '../../components/common'
-
+import colors from '../../constants/colors'
 import useContacts from './useContacts'
 
 const styles = StyleSheet.create({
@@ -26,6 +32,32 @@ const styles = StyleSheet.create({
 
 const Contacts = () => {
   const { operations, models } = useContacts()
+
+  const renderContact = ({ item: contact }) => (
+    <ContactListItem
+      key={contact.id}
+      name={contact.name}
+      number={contact.number}
+      isActive={models.activeContact === contact.id}
+      ActionTools={
+        <>
+          <Button
+            buttonStyle={styles.actionButton}
+            icon={<Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />}
+            title="Call now"
+            onPress={() => operations.handleCallNow(contact.number)}
+          />
+          <Button
+            buttonStyle={styles.actionButton}
+            title="Call PBX"
+            icon={<Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />}
+          />
+        </>
+      }
+      onPress={() => operations.handleContactPress(contact.id)}
+    />
+  )
+
   return (
     <TouchableWithoutFeedback onPress={operations.handleContainerPress}>
       <View style={styles.container}>
@@ -35,36 +67,13 @@ const Contacts = () => {
           value={models.searchText}
           onChangeText={operations.handleSearchTextChange}
         />
-        <View>
-          {models.contacts.loading && <Text h4>Loading...</Text>}
-          {models.contacts.data.map((contact) => (
-            <ContactListItem
-              key={contact.id}
-              name={contact.name}
-              number={contact.number}
-              isActive={models.activeContact === contact.id}
-              ActionTools={
-                <>
-                  <Button
-                    buttonStyle={styles.actionButton}
-                    icon={
-                      <Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />
-                    }
-                    title="Call now"
-                  />
-                  <Button
-                    buttonStyle={styles.actionButton}
-                    title="Call PBX"
-                    icon={
-                      <Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />
-                    }
-                  />
-                </>
-              }
-              onPress={() => operations.handleContactPress(contact.id)}
-            />
-          ))}
-        </View>
+        {models.contacts.loading && <ActivityIndicator size="large" color={colors.primary} />}
+
+        <FlatList
+          data={models.contacts.data}
+          renderItem={renderContact}
+          keyExtractor={(contact) => contact.id.toString()}
+        />
       </View>
     </TouchableWithoutFeedback>
   )

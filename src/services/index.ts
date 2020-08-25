@@ -1,5 +1,8 @@
 export { useContactsService } from './useContactsService'
 export { useLoginService } from './useLoginService'
-
 export type { ContactsServiceData } from './useContactsService'
 export type { LoginServiceData } from './useLoginService'
+export { usePausesService } from './usePausesService'
+export type { PausesServiceData } from './usePausesService'
+export { useAgentService } from './useAgentService'
+export type { AgentServiceData } from './useAgentService'

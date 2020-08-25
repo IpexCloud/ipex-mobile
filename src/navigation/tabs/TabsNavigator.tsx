@@ -3,8 +3,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import colors from '../../constants/colors'
-import CallcenterScreen from '../../screens/CallcenterScreen'
-import { Contacts } from '../../screens'
+import { Contacts, Callcenter } from '../../screens'
 
 export type TabsParamList = {
   Contacts: undefined
@@ -33,7 +32,7 @@ export function TabsNavigator() {
 
       <Tab.Screen
         name="Callcenter"
-        component={CallcenterScreen}
+        component={Callcenter}
         options={{
           tabBarLabel: 'Callcenter',
           tabBarIcon: ({ color, size }) => <Icon name="headset" color={color} size={size} />,

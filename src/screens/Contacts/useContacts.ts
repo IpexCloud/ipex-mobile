@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Linking } from 'react-native'
 import { remove as removeDiacritics } from 'diacritics'
 
 import { useContactsService, ContactsServiceData } from '../../services'
@@ -9,6 +10,7 @@ type ContactsOperations = {
   handleContactPress: (id: string) => void
   handleContainerPress: () => void
   handleSearchTextChange: (text: string) => void
+  handleCallNow: (number: string) => Promise<any>
 }
 
 type ContactsModels = {
@@ -27,10 +29,7 @@ const filterContacts = (searchText: string) => (contact: any) => {
   return searchParts.some((part) => normalize(contact.name).includes(normalize(part)))
 }
 
-const useContacts: Architecture.ConcernSeparationHook<
-  ContactsOperations,
-  ContactsModels
-> = () => {
+const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, ContactsModels> = () => {
   const [activeContact, setActiveContact] = useState('')
   const [searchText, setSearchText] = useState('')
   const [data, setData] = useState<ContactsServiceData>([])
@@ -47,12 +46,14 @@ const useContacts: Architecture.ConcernSeparationHook<
   }
   const handleContactPress = (id: string) => setActiveContact(id)
   const handleContainerPress = () => setActiveContact('')
+  const handleCallNow = (number: string) => Linking.openURL(`tel:${number}`)
 
   return {
     operations: {
       handleContactPress,
       handleContainerPress,
       handleSearchTextChange,
+      handleCallNow,
     },
     models: {
       activeContact,

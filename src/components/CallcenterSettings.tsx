@@ -1,52 +1,54 @@
 import * as React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { Button, Overlay, Text, Card } from 'react-native-elements'
-
+import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { Button, Overlay, Card } from 'react-native-elements'
+import { PausesServiceData, AgentServiceData } from '../services'
 import Picker from './common/Picker'
 import colors from '../constants/colors'
 import layout from '../constants/layout'
 
-const pauseOptions = [
-  { label: 'No pause', value: 'No pause' },
-  { label: 'WC', value: 'WC' },
-  { label: 'Lunch', value: 'Lunch' },
-  { label: 'Private', value: 'Private' },
-  { label: 'Work', value: 'Work' },
-]
+type Props = {
+  pauseOptions: PausesServiceData
+  agent: AgentServiceData
+  onPauseChange: (pause: string) => void
+}
 
-export default function CallcenterSettings() {
-  const [pause, setPause] = React.useState('Bez pauzy')
+const CallcenterSettings = (props: Props) => {
   const [visible, setVisible] = React.useState(false)
 
   const toggleOverlay = () => {
     setVisible(!visible)
   }
 
+  const pauseOptions = props.pauseOptions
+    .map((p) => ({ label: p, value: p }))
+    .concat({ label: 'Bez pauzy', value: 'no-pause' })
+
   return (
     <View style={styles.container}>
-      <Card title="Settings" containerStyle={styles.card}>
-        <Text style={styles.cardText}>
-          Change your callcenter settings for example your availability
-        </Text>
+      <Card title="Nastaveni pauz" containerStyle={styles.card}>
         <Button
+          TouchableComponent={TouchableWithoutFeedback}
           buttonStyle={styles.button}
           icon={{
-            name: 'settings',
-            size: 15,
-            color: 'white',
-            type: 'ionicons',
+            name: 'dot-single',
+            size: 45,
+            color: props.agent.paused ? colors.danger : colors.primary,
+            type: 'entypo',
+            containerStyle: styles.buttonIcon,
           }}
+          title={props.agent.paused ? props.agent.pausedReason : 'Bez pauzy'}
           raised
           onPress={toggleOverlay}
+          type="clear"
+          titleStyle={styles.buttonTitle}
         />
       </Card>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={styles.overlay}>
         <>
-          <Text style={styles.overlayLabel}>Pause settings</Text>
           <Picker
-            value={pause}
+            value={props.agent.paused ? props.agent.pausedReason : 'no-pause'}
             options={pauseOptions}
-            onChange={(selected) => setPause(selected)}
+            onChange={(value) => props.onPauseChange(value)}
           />
         </>
       </Overlay>
@@ -61,25 +63,28 @@ const styles = StyleSheet.create({
   },
   card: {
     borderRadius: 10,
-  },
-  cardText: {
-    marginBottom: 10,
-    textAlign: 'center',
+    width: '95%',
   },
   button: {
-    borderRadius: 0,
     marginLeft: 0,
     marginRight: 0,
     marginBottom: 0,
-    backgroundColor: colors.primary,
+    borderRadius: 5,
+    backgroundColor: 'white',
+  },
+  buttonTitle: {
+    color: colors.primaryText,
+    textAlign: 'center',
+  },
+  buttonIcon: {
+    position: 'absolute',
+    left: layout.window.width / 4,
   },
   overlay: {
     width: layout.window.width * 0.8,
     height: layout.window.height * 0.4,
     padding: 20,
   },
-  overlayLabel: {
-    fontWeight: 'bold',
-    paddingBottom: 10,
-  },
 })
+
+export default CallcenterSettings

@@ -17,6 +17,9 @@ const contactListItemStyles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 20,
   },
+  contactAvatar: {
+    backgroundColor: '#BEBEBE',
+  },
   contactName: {
     fontSize: 16,
     fontWeight: 'bold',
@@ -63,12 +66,9 @@ const ContactListItem = ({
           <Avatar
             rounded
             size="medium"
-            source={
-              avatarSource || {
-                uri:
-                  'https://w5insight.com/wp-content/uploads/2014/07/placeholder-user-400x400.png',
-              }
-            }
+            title={name[0]}
+            overlayContainerStyle={contactListItemStyles.contactAvatar}
+            source={avatarSource}
           />
           <View style={contactListItemStyles.textContainer}>
             <Text style={contactListItemStyles.contactName}>{name}</Text>
