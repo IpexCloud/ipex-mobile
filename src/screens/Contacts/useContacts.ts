@@ -11,6 +11,7 @@ type ContactsOperations = {
   handleContainerPress: () => void
   handleSearchTextChange: (text: string) => void
   handleCallNow: (number: string) => Promise<any>
+  handleCallPbx: (number: string) => Promise<void>
 }
 
 type ContactsModels = {
@@ -34,7 +35,7 @@ const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, Contac
   const [searchText, setSearchText] = useState('')
   const [data, setData] = useState<ContactsServiceData>([])
 
-  const [{ queries }, { error, loading }] = useContactsService()
+  const [{ queries, commands }, { error, loading }] = useContactsService()
 
   useEffect(() => {
     queries.getContacts().then((contacts) => setData(contacts))
@@ -47,6 +48,7 @@ const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, Contac
   const handleContactPress = (id: string) => setActiveContact(id)
   const handleContainerPress = () => setActiveContact('')
   const handleCallNow = (number: string) => Linking.openURL(`tel:${number}`)
+  const handleCallPbx = (number: string) => commands.callPbx(number).then(() => console.log('DONE'))
 
   return {
     operations: {
@@ -54,6 +56,7 @@ const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, Contac
       handleContainerPress,
       handleSearchTextChange,
       handleCallNow,
+      handleCallPbx,
     },
     models: {
       activeContact,

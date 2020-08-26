@@ -51,6 +51,7 @@ const Contacts = () => {
             buttonStyle={styles.actionButton}
             title="Zavolat přes PBX"
             icon={<Icon name="call" size={15} color="white" style={styles.actionButtonIcon} />}
+            onPress={() => operations.handleCallPbx(contact.number)}
           />
         </>
       }

@@ -25,7 +25,7 @@ const CallcenterSettings = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Card title="Nastaveni pauz" containerStyle={styles.card}>
+      <Card title="Nastavení pauzy" containerStyle={styles.card}>
         <Button
           TouchableComponent={TouchableWithoutFeedback}
           buttonStyle={styles.button}
