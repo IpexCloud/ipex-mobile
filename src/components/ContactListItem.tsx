@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { View, StyleSheet, ImageURISource, TouchableHighlight } from 'react-native'
 
-import { Avatar, Text } from 'react-native-elements'
+import { Avatar } from 'react-native-elements'
+import { Text } from './common'
+import colors from '../constants/colors'
 
 const contactListItemStyles = StyleSheet.create({
   container: {
@@ -9,76 +11,44 @@ const contactListItemStyles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 15,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: colors.gray200,
     borderBottomWidth: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
   },
   textContainer: {
     justifyContent: 'center',
     marginLeft: 20,
   },
-  contactAvatar: {
-    backgroundColor: '#BEBEBE',
-  },
   contactName: {
-    fontSize: 16,
-    fontWeight: 'bold',
     lineHeight: 26,
-  },
-  activeStyle: {
-    backgroundColor: '#f2f5f7',
-  },
-  actionTools: {
-    flexDirection: 'row',
-    backgroundColor: '#f2f5f7',
-    borderBottomColor: '#e5e5e5',
-    borderBottomWidth: 1,
-    padding: 15,
   },
 })
 
 type ContactListItemProps = {
-  name: string
-  number: string
+  firstName: string
+  lastName: string
   avatarSource?: ImageURISource
-  isActive?: boolean
-  ActionTools?: React.ReactNode
   onPress?: () => void
 }
 
-const ContactListItem = ({
-  avatarSource,
-  name,
-  number,
-  isActive,
-  ActionTools,
-  onPress,
-}: ContactListItemProps) => {
+const ContactListItem = ({ avatarSource, firstName, lastName, onPress }: ContactListItemProps) => {
   return (
     <>
       <TouchableHighlight onPress={onPress}>
-        <View
-          style={[
-            contactListItemStyles.container,
-            isActive && contactListItemStyles.activeStyle,
-          ].filter(Boolean)}
-        >
+        <View style={contactListItemStyles.container}>
           <Avatar
             rounded
             size="medium"
-            title={name[0]}
-            overlayContainerStyle={contactListItemStyles.contactAvatar}
+            title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
             source={avatarSource}
           />
           <View style={contactListItemStyles.textContainer}>
-            <Text style={contactListItemStyles.contactName}>{name}</Text>
-            <Text>{number}</Text>
+            <Text style={contactListItemStyles.contactName} size="medium" weight={'light'}>
+              {firstName} {lastName}
+            </Text>
           </View>
         </View>
       </TouchableHighlight>
-      {isActive && ActionTools && (
-        <View style={contactListItemStyles.actionTools}>{ActionTools}</View>
-      )}
     </>
   )
 }

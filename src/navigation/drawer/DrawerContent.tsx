@@ -1,13 +1,17 @@
 import * as React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer'
+import {
+  DrawerItem,
+  DrawerContentScrollView,
+  DrawerContentComponentProps,
+} from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Avatar, Text, Divider } from 'react-native-elements'
+import { Avatar, Divider } from 'react-native-elements'
+import { Text } from '../../components/common'
 
 import { useGlobalContext } from '../../context'
-import colors from '../../constants/colors'
 
-export default function DrawerContent(props) {
+export default function DrawerContent(props: DrawerContentComponentProps) {
   const {
     auth: { firstName, lastName, email },
   } = useGlobalContext()
@@ -17,19 +21,18 @@ export default function DrawerContent(props) {
       <View style={styles.drawerContent}>
         <View style={styles.userInfoSection}>
           <Avatar
-            size="medium"
+            size="large"
             rounded
-            source={{
-              uri:
-                'https://thumbs.dreamstime.com/b/call-center-agent-isolated-white-background-57688768.jpg',
-            }}
+            title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
           />
-          <Text h4 style={styles.title}>
+          <Text style={styles.title} weight="regular" size="large">
             {firstName} {lastName}
           </Text>
-          <Text style={styles.caption}>{email}</Text>
+          <Text style={styles.caption} size="xsmall">
+            {email}
+          </Text>
         </View>
-        <Divider style={{ backgroundColor: colors.secondaryText, marginVertical: '5%' }} />
+        <Divider style={styles.divider} />
         <DrawerItem
           icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
           label="Odhlásit"
@@ -50,9 +53,11 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 20,
-    fontWeight: 'bold',
   },
   caption: {
     lineHeight: 24,
+  },
+  divider: {
+    marginVertical: '5%',
   },
 })

@@ -5,6 +5,7 @@ import { PausesServiceData, AgentServiceData } from '../services'
 import Picker from './common/Picker'
 import colors from '../constants/colors'
 import layout from '../constants/layout'
+import { Loader, Text } from './common'
 
 type Props = {
   pauseOptions: PausesServiceData
@@ -23,21 +24,25 @@ const CallcenterSettings = (props: Props) => {
     .map((p) => ({ label: p, value: p }))
     .concat({ label: 'Bez pauzy', value: 'no-pause' })
 
+  if (!props.agent) return <Loader />
+
   return (
     <View style={styles.container}>
-      <Card title="Nastavení pauzy" containerStyle={styles.card}>
+      <Card containerStyle={styles.card}>
+        <Card.Title style={{ textAlign: 'left' }}>
+          <Text weight="medium">Nastavení pauzy</Text>
+        </Card.Title>
         <Button
           TouchableComponent={TouchableWithoutFeedback}
           buttonStyle={styles.button}
           icon={{
             name: 'dot-single',
             size: 45,
-            color: props.agent.paused ? colors.danger : colors.primary,
+            color: props.agent.paused ? colors.error : colors.primary,
             type: 'entypo',
             containerStyle: styles.buttonIcon,
           }}
           title={props.agent.paused ? props.agent.pausedReason : 'Bez pauzy'}
-          raised
           onPress={toggleOverlay}
           type="clear"
           titleStyle={styles.buttonTitle}
@@ -64,6 +69,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 10,
     width: '95%',
+    borderColor: colors.gray200,
   },
   button: {
     marginLeft: 0,
@@ -73,12 +79,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   buttonTitle: {
-    color: colors.primaryText,
     textAlign: 'center',
+    color: colors.gray600,
   },
   buttonIcon: {
     position: 'absolute',
-    left: layout.window.width / 4,
+    left: '20%',
   },
   overlay: {
     width: layout.window.width * 0.8,

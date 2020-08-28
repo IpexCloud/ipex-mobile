@@ -32,7 +32,7 @@ export namespace GlobalContext {
   }
 
   type SetAuth = {
-    type: 'auth/login',
+    type: 'auth/login'
     payload: {
       [key: string]: any
     }

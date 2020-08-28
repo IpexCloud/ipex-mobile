@@ -1,12 +1,12 @@
 import React from 'react'
-import { Text } from 'react-native-elements'
 import { StyleSheet } from 'react-native'
+
+import Text from './Text'
 
 const screenTitleStyles = StyleSheet.create({
   container: {
     paddingVertical: 20,
     paddingHorizontal: 10,
-    fontWeight: 'bold',
   },
 })
 
@@ -15,7 +15,7 @@ type ScreenTitleProps = {
 }
 
 const ScreenTitle = ({ text }: ScreenTitleProps) => (
-  <Text h4 style={screenTitleStyles.container}>
+  <Text style={screenTitleStyles.container} size="large" weight="medium">
     {text}
   </Text>
 )

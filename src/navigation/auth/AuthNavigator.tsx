@@ -20,7 +20,7 @@ const AuthNavigator = () => {
           headerTitle: '',
           headerTransparent: true,
           cardStyle: {
-            backgroundColor: colors.primaryText,
+            backgroundColor: colors.background,
           },
         }}
       />

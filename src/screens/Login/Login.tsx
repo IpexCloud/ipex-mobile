@@ -1,6 +1,8 @@
 import * as React from 'react'
-import { StyleSheet, View, UIManager, KeyboardAvoidingView, Text } from 'react-native'
-import { Input, Button, Icon, Image } from 'react-native-elements'
+import { StyleSheet, View, UIManager, KeyboardAvoidingView } from 'react-native'
+import { Input, Button, Image } from 'react-native-elements'
+
+import { Text } from '../../components/common'
 
 import useLogin from './useLogin'
 
@@ -33,13 +35,11 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
     height: 50,
-    backgroundColor: colors.primary,
     textAlign: 'center',
   },
   buttonTitleStyle: {
-    fontSize: 16,
+    fontSize: layout.font.small,
     color: colors.background,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
 
@@ -78,7 +78,7 @@ const Login = () => {
               containerStyle={{
                 borderBottomColor: 'rgba(0, 0, 0, 0.38)',
               }}
-              onChangeText={(text) => operations.updateCredentials({ email: text })}
+              onChangeText={(text: string) => operations.updateCredentials({ email: text })}
             />
             <Input
               value={models.credentials.password}
@@ -95,7 +95,7 @@ const Login = () => {
               inputStyle={{ marginLeft: 10 }}
               placeholder={'Heslo'}
               onSubmitEditing={operations.handleLogin}
-              onChangeText={(text) => operations.updateCredentials({ password: text })}
+              onChangeText={(text: string) => operations.updateCredentials({ password: text })}
             />
             <Button
               buttonStyle={styles.button}

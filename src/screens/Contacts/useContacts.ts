@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Linking } from 'react-native'
 import { remove as removeDiacritics } from 'diacritics'
 
 import { useContactsService, ContactsServiceData } from '../../services'
@@ -10,8 +9,6 @@ type ContactsOperations = {
   handleContactPress: (id: string) => void
   handleContainerPress: () => void
   handleSearchTextChange: (text: string) => void
-  handleCallNow: (number: string) => Promise<any>
-  handleCallPbx: (number: string) => Promise<void>
 }
 
 type ContactsModels = {
@@ -35,11 +32,11 @@ const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, Contac
   const [searchText, setSearchText] = useState('')
   const [data, setData] = useState<ContactsServiceData>([])
 
-  const [{ queries, commands }, { error, loading }] = useContactsService()
+  const [{ queries }, { error, loading }] = useContactsService()
 
   useEffect(() => {
     queries.getContacts().then((contacts) => setData(contacts))
-  }, [queries])
+  }, [])
 
   const handleSearchTextChange = (text: string) => {
     setActiveContact('')
@@ -47,16 +44,12 @@ const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, Contac
   }
   const handleContactPress = (id: string) => setActiveContact(id)
   const handleContainerPress = () => setActiveContact('')
-  const handleCallNow = (number: string) => Linking.openURL(`tel:${number}`)
-  const handleCallPbx = (number: string) => commands.callPbx(number).then(() => console.log('DONE'))
 
   return {
     operations: {
       handleContactPress,
       handleContainerPress,
       handleSearchTextChange,
-      handleCallNow,
-      handleCallPbx,
     },
     models: {
       activeContact,

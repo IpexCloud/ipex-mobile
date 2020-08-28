@@ -1,12 +1,25 @@
 import * as React from 'react'
-import { View, StyleSheet, ActivityIndicator, Alert } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { DrawerNavigationProp } from '@react-navigation/drawer'
+import { CompositeNavigationProp } from '@react-navigation/native'
 
-import { ScreenTitle } from '../../components/common'
+import { ScreenTitle, Loader, Appbar } from '../../components/common'
 import { CallcenterSettings } from '../../components'
 import colors from '../../constants/colors'
 import useCallcenter from './useCallcenter'
 
-const Callcenter = () => {
+import { TabsNavigatorParamList } from '../../navigation/tabs/TabsNavigator'
+import { DrawerParamList } from '../../navigation/drawer/DrawerNavigator'
+
+type Props = {
+  navigation: CompositeNavigationProp<
+    BottomTabNavigationProp<TabsNavigatorParamList, 'Callcenter'>,
+    DrawerNavigationProp<DrawerParamList>
+  >
+}
+
+const Callcenter = (props: Props) => {
   const { operations, models } = useCallcenter()
 
   if (models.agent.error) {
@@ -18,18 +31,21 @@ const Callcenter = () => {
   }
 
   return (
-    <View style={styles.screen}>
-      <ScreenTitle text="Call centrum" />
-      {models.pauses.loading || models.agent.loading || !models.agent.data ? (
-        <ActivityIndicator size="large" color={colors.primary} />
-      ) : (
+    <>
+      <Appbar {...props} />
+      <View style={styles.screen}>
+        <ScreenTitle text="Call centrum" />
+        {models.pauses.loading || models.agent.loading ? (
+          <Loader />
+        ) : (
           <CallcenterSettings
             pauseOptions={models.pauses.data}
             agent={models.agent.data}
             onPauseChange={operations.handlePauseChange}
           />
         )}
-    </View>
+      </View>
+    </>
   )
 }
 

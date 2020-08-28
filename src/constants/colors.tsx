@@ -1,14 +1,14 @@
 export default {
   primary: '#AFBF27',
-  primaryText: '#191C1F',
-  secondaryText: '#666666',
-  background: 'white',
-  danger: '#F53C40',
-
-  // DARK THEME
-  // primary: '#81BA1D',
-  // primaryText: 'white',
-  // secondaryText: '#737373',
-  // background: '#18191A',
-  // danger: '#EA4335',
+  white: '#F7F7F7',
+  black: 'black',
+  gray600: '#666666',
+  gray400: '#999999',
+  gray350: '#A5A5A5',
+  gray300: '#BEBEBE',
+  gray200: '#E5E5E5',
+  gray100: '#F2F5F7',
+  error: '#FF1C24',
+  warning: '#FF931E',
+  background: '#F7F7F7',
 }
