@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
-import { Button, Overlay, Card } from 'react-native-elements'
+import { Button, Overlay } from 'react-native-elements'
 import { PausesServiceData, AgentServiceData } from '../services'
 import Picker from './common/Picker'
 import colors from '../constants/colors'
 import layout from '../constants/layout'
-import { Loader, Text } from './common'
+import { Loader } from './common'
 
 type Props = {
   pauseOptions: PausesServiceData
@@ -28,10 +28,7 @@ const CallcenterSettings = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <Card containerStyle={styles.card}>
-        <Card.Title style={{ textAlign: 'left' }}>
-          <Text weight="medium">Nastavení pauzy</Text>
-        </Card.Title>
+      <View style={styles.settings}>
         <Button
           TouchableComponent={TouchableWithoutFeedback}
           buttonStyle={styles.button}
@@ -47,7 +44,7 @@ const CallcenterSettings = (props: Props) => {
           type="clear"
           titleStyle={styles.buttonTitle}
         />
-      </Card>
+      </View>
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={styles.overlay}>
         <>
           <Picker
@@ -66,10 +63,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  card: {
-    borderRadius: 10,
+  settings: {
     width: '95%',
-    borderColor: colors.gray200,
   },
   button: {
     marginLeft: 0,

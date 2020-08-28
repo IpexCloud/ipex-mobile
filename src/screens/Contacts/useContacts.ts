@@ -24,7 +24,7 @@ const filterContacts = (searchText: string) => (contact: any) => {
     return true
   }
   const searchParts = searchText.split(' ')
-  return searchParts.some((part) => normalize(contact.name).includes(normalize(part)))
+  return searchParts.some((part) => normalize(contact.firstName + ' ' + contact.lastName).includes(normalize(part)))
 }
 
 const useContacts: Architecture.ConcernSeparationHook<ContactsOperations, ContactsModels> = () => {

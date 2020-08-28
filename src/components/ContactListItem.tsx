@@ -43,7 +43,7 @@ const ContactListItem = ({ avatarSource, firstName, lastName, onPress }: Contact
             source={avatarSource}
           />
           <View style={contactListItemStyles.textContainer}>
-            <Text style={contactListItemStyles.contactName} size="medium" weight={'light'}>
+            <Text style={contactListItemStyles.contactName} size="small" weight={'light'}>
               {firstName} {lastName}
             </Text>
           </View>
