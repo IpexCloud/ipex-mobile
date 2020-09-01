@@ -43,7 +43,7 @@ const ContactsNavigator = () => {
       <ContactsStackNavigator.Screen
         name="ContactsList"
         component={Contacts}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, title: 'Kontakty' }}
       />
       <ContactsStackNavigator.Screen
         name="ContactDetail"
