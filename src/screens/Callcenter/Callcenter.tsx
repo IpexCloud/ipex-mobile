@@ -1,10 +1,10 @@
-import * as React from 'react'
-import { View, StyleSheet, Alert } from 'react-native'
+import React from 'react'
+import { StyleSheet, ScrollView, RefreshControl } from 'react-native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { CompositeNavigationProp } from '@react-navigation/native'
 
-import { ScreenTitle, Loader, Appbar } from '../../components/common'
+import { ScreenTitle, Loader, Appbar, Error } from '../../components/common'
 import { CallcenterSettings } from '../../components'
 import colors from '../../constants/colors'
 import useCallcenter from './useCallcenter'
@@ -22,18 +22,19 @@ type Props = {
 const Callcenter = (props: Props) => {
   const { operations, models } = useCallcenter()
 
-  if (models.agent.error) {
-    Alert.alert('Nastala chyba', 'Chyba pri načítání stavu agenta', [{ text: 'OK' }])
-  }
-
-  if (models.pauses.error) {
-    Alert.alert('Nastala chyba', 'Chyba pri načítání pauz', [{ text: 'OK' }])
+  if (models.agent.error || models.pauses.error) {
+    return <Error reason="Nastala chyba pri načítání callcentra" />
   }
 
   return (
     <>
       <Appbar {...props} />
-      <View style={styles.screen}>
+      <ScrollView
+        contentContainerStyle={styles.screen}
+        refreshControl={
+          <RefreshControl refreshing={models.refreshing} onRefresh={operations.handleRefresh} />
+        }
+      >
         <ScreenTitle text="Call centrum" />
         {models.pauses.loading || models.agent.loading ? (
           <Loader />
@@ -44,7 +45,7 @@ const Callcenter = (props: Props) => {
             onPauseChange={operations.handlePauseChange}
           />
         )}
-      </View>
+      </ScrollView>
     </>
   )
 }

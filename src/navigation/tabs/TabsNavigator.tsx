@@ -25,6 +25,7 @@ export type ContactsNavigatorParamList = {
 
 const Tab = createBottomTabNavigator<TabsNavigatorParamList>()
 
+// TODO: separate contacts navigator
 const ContactsStackNavigator = createStackNavigator<ContactsNavigatorParamList>()
 
 const ContactsNavigator = () => {
@@ -33,6 +34,9 @@ const ContactsNavigator = () => {
       screenOptions={{
         headerStyle: {
           height: layout.window.height / 8,
+          backgroundColor: colors.background,
+          elevation: 0,
+          shadowOpacity: 0,
         },
       }}
     >
@@ -56,7 +60,7 @@ export function TabsNavigator() {
       tabBarOptions={{
         showLabel: false,
         activeTintColor: colors.primary,
-        // inactiveTintColor: colors.gray400,
+        inactiveTintColor: colors.gray300,
         style: {
           backgroundColor: colors.background,
         },

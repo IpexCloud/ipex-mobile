@@ -6,7 +6,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
 import { ContactListItem } from '../../components'
-import { SearchBar, ScreenTitle, Loader, Appbar } from '../../components/common'
+import { SearchBar, ScreenTitle, Loader, Appbar, Error } from '../../components/common'
 import useContacts from './useContacts'
 import { Contact } from '../../services'
 import { ContactsNavigatorParamList } from '../../navigation/tabs/TabsNavigator'
@@ -36,6 +36,10 @@ const Contacts = (props: Props) => {
     />
   )
 
+  if (models.contacts.error) {
+    return <Error />
+  }
+
   return (
     <>
       <Appbar {...props} />
@@ -47,7 +51,7 @@ const Contacts = (props: Props) => {
           ) : (
             <>
               <SearchBar
-                placeholder="Vyhledat kontakt..."
+                placeholder="Vyhledat"
                 value={models.searchText}
                 onChangeText={operations.handleSearchTextChange}
               />

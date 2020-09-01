@@ -1,44 +1,63 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { Provider } from 'use-http'
+import { Provider, CachePolicies, IncomingOptions } from 'use-http'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import config from '../../config'
 import AuthNavigator from './auth/AuthNavigator'
 import { DrawerNavigator } from './drawer/DrawerNavigator'
-import { useGlobalContext } from '../context'
+import { useGlobalContext, useGlobalDispatch } from '../context'
+import { Startup } from '../screens'
+import { useLoginService } from '../services/useLoginService'
 
 export default function AppNavigator() {
-  const { auth } = useGlobalContext()
+  const { auth, tryAutoLogin } = useGlobalContext()
+  const dispatch = useGlobalDispatch()
+  const [{ commands }] = useLoginService()
+
   const isAuth = !!auth.authToken
 
-  const options = {
+  // TODO: separate to another file
+  const defaultOptions = {
     headers: {
       Authorization: `Bearer ${auth.authToken}`,
     },
     loading: true,
-    // interceptors: {
-    //   request: async ({ options }: { options: IncomingOptions }) => {
-    //     // TODO: check token expire
-    //     options.headers = {
-    //       ...options.headers,
-    //       Authorization: `Bearer ${config.TOKEN}`,
-    //     }
-    //     options.loading = true
+    cachePolicy: CachePolicies.NETWORK_ONLY,
+    interceptors: {
+      request: async ({ options }: { options: IncomingOptions }) => {
+        // Check if token is expired or will be in 1 minute
+        if (new Date(auth.expiresAt) < new Date(new Date().getTime() + 60000)) {
+          const credentials = await AsyncStorage.getItem('credentials')
+          if (credentials) {
+            const newLoginData = await commands.login(JSON.parse(credentials))
+            if (newLoginData) {
+              dispatch({ type: 'auth/login', payload: newLoginData })
+              options = {
+                ...options,
+                headers: {
+                  ...options.headers,
+                  Authorization: `Bearer ${newLoginData.authToken}`,
+                },
+              }
+            }
+          }
+        }
 
-    //     return options
-    //   },
-    // },
+        return options
+      },
+    },
   }
 
   return (
     <NavigationContainer>
-      {isAuth ? (
-        <Provider url={config.IPBX_API_URL} options={options}>
+      {isAuth && (
+        <Provider url={config.IPBX_API_URL} options={defaultOptions}>
           <DrawerNavigator />
         </Provider>
-      ) : (
-        <AuthNavigator />
       )}
+      {!isAuth && tryAutoLogin && <AuthNavigator />}
+      {!isAuth && !tryAutoLogin && <Startup />}
     </NavigationContainer>
   )
 }

@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     left: '20%',
   },
   overlay: {
-    width: layout.window.width * 0.8,
+    width: layout.window.width * 0.9,
     height: layout.window.height * 0.4,
     padding: 20,
   },

@@ -1,7 +1,8 @@
 import { GlobalContext } from '../lib/types'
 
 const initialState: GlobalContext.State = {
-    auth: {}
+  auth: {},
+  tryAutoLogin: false,
 }
 
 export default initialState

@@ -34,10 +34,10 @@ const ContactDetail = (props: Props) => {
     >
       <View style={styles.listItem} key={item.number}>
         <View>
-          <Text weight="light" size="xsmall">
+          <Text weight="medium" size="xsmall">
             {phoneTypesMap[item.type]}
           </Text>
-          <Text weight="medium">{item.number}</Text>
+          <Text weight="light">{item.number}</Text>
         </View>
         <Icon name="call" size={layout.font.large} color={colors.gray300} />
       </View>

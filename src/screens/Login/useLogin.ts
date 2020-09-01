@@ -26,11 +26,11 @@ const useLogin: Architecture.ConcernSeparationHook<LoginOperations, LoginModels>
   })
   const [{ commands }, loginState] = useLoginService()
 
-  const handleLogin = () => {
-    commands.login(credentials).then(loginData => loginData && dispatch({
-      type: 'auth/login',
-      payload: loginData
-    }))
+  const handleLogin = async () => {
+    const loginData = await commands.login(credentials)
+    if (loginData) {
+      dispatch({ type: 'auth/login', payload: loginData })
+    }
   }
 
   const updateCredentials = (data: { email: string } | { password: string }) =>

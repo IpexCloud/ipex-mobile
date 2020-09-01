@@ -9,20 +9,26 @@ import {
 
 import { Architecture } from '../../lib/types'
 
-type PausesOperations = {
+type CallcenterOperations = {
   handlePauseChange: (pause: string) => void
+  handleRefresh: () => Promise<void>
 }
 
-type PausesModels = {
+type CallcenterModels = {
   pauses: Architecture.ServiceState & { data: PausesServiceData }
   agent: Architecture.ServiceState & { data: AgentServiceData }
+  refreshing: boolean
 }
 
-const useCallcenter: Architecture.ConcernSeparationHook<PausesOperations, PausesModels> = () => {
+const useCallcenter: Architecture.ConcernSeparationHook<
+  CallcenterOperations,
+  CallcenterModels
+> = () => {
   const [{ queries: pauseQueries, commands: pauseCommands }, pauseState] = usePausesService()
   const [{ queries: agentQueries }, agentState] = useAgentService()
   const [agentDetail, setAgentDetail] = useState<AgentServiceData>(undefined)
   const [pauses, setPauses] = useState<PausesServiceData>([])
+  const [refreshing, setRefreshing] = useState(false)
 
   const handlePauseChange = async (pause: string) => {
     setAgentDetail({
@@ -30,6 +36,15 @@ const useCallcenter: Architecture.ConcernSeparationHook<PausesOperations, Pauses
       pausedReason: pause === 'no-pause' ? '' : pause,
     })
     await pauseCommands.change(pause)
+  }
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    const agent = await agentQueries.getDetail()
+    const pausesList = await pauseQueries.getList()
+    setAgentDetail(agent)
+    setPauses(pausesList)
+    setRefreshing(false)
   }
 
   useEffect(() => {
@@ -40,6 +55,7 @@ const useCallcenter: Architecture.ConcernSeparationHook<PausesOperations, Pauses
   return {
     operations: {
       handlePauseChange,
+      handleRefresh,
     },
     models: {
       pauses: {
@@ -52,6 +68,7 @@ const useCallcenter: Architecture.ConcernSeparationHook<PausesOperations, Pauses
         error: agentState.error,
         loading: agentState.loading,
       },
+      refreshing,
     },
   }
 }

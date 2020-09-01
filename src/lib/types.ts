@@ -29,16 +29,22 @@ export namespace GlobalContext {
     auth: {
       [key: string]: any
     }
+    tryAutoLogin: boolean
   }
 
-  type SetAuth = {
+  export type SetAuth = {
     type: 'auth/login'
     payload: {
       [key: string]: any
     }
   }
 
-  export type Actions = SetAuth
+  export type SetTryAutoLogin = {
+    type: 'auth/autoLogin'
+    payload: boolean
+  }
+
+  export type Actions = SetAuth | SetTryAutoLogin
 
   export type Dispatch = (action: Actions) => void
 }

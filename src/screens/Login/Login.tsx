@@ -1,15 +1,11 @@
-import * as React from 'react'
+import React, { createRef, useEffect } from 'react'
 import { StyleSheet, View, UIManager, KeyboardAvoidingView } from 'react-native'
 import { Input, Button, Image } from 'react-native-elements'
 
-import { Text } from '../../components/common'
-
 import useLogin from './useLogin'
-
 import colors from '../../constants/colors'
 import layout from '../../constants/layout'
 
-// Enable LayoutAnimation on Android
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true)
 
@@ -54,6 +50,14 @@ const styles = StyleSheet.create({
 
 const Login = () => {
   const { operations, models } = useLogin()
+  const passwordRef = createRef<Input>()
+
+  useEffect(() => {
+    if (models.login.error && passwordRef && passwordRef.current) {
+      passwordRef.current.shake()
+    }
+  }, [models.login.error])
+
   return (
     <View style={styles.screen}>
       <View>
@@ -81,6 +85,7 @@ const Login = () => {
               onChangeText={(text: string) => operations.updateCredentials({ email: text })}
             />
             <Input
+              ref={passwordRef}
               value={models.credentials.password}
               keyboardAppearance="light"
               autoCapitalize="none"
@@ -106,7 +111,6 @@ const Login = () => {
               loading={models.login.loading}
               disabled={models.login.loading}
             />
-            {models.login.error && <Text>Error occured: {models.login.error}</Text>}
           </View>
         </KeyboardAvoidingView>
       </View>

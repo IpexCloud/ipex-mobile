@@ -7,14 +7,17 @@ import {
 } from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Avatar, Divider } from 'react-native-elements'
-import { Text } from '../../components/common'
 
-import { useGlobalContext } from '../../context'
+import { Text } from '../../components/common'
+import { useLoginService } from '../../services/useLoginService'
+import { useGlobalContext, useGlobalDispatch } from '../../context'
 
 export default function DrawerContent(props: DrawerContentComponentProps) {
   const {
     auth: { firstName, lastName, email },
   } = useGlobalContext()
+  const dispatch = useGlobalDispatch()
+  const [{ commands }] = useLoginService()
 
   return (
     <DrawerContentScrollView {...props}>
@@ -36,7 +39,10 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
         <DrawerItem
           icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
           label="Odhlásit"
-          onPress={() => {}}
+          onPress={() => {
+            dispatch({ type: 'auth/login', payload: {} })
+            commands.logout()
+          }}
         />
       </View>
     </DrawerContentScrollView>
