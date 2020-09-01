@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native'
 import { useFocusEffect } from '@react-navigation/native'
 
 import { ContactsNavigatorParamList } from '../../navigation/tabs/TabsNavigator'
-import { Text } from '../../components/common'
+import { Text, Loader } from '../../components/common'
 import colors from '../../constants/colors'
 import layout from '../../constants/layout'
 import useDialpad from './useDialpad'
@@ -76,15 +76,19 @@ const Dialpad = (props: Props) => {
               <Icon name="phone-iphone" size={layout.font.small} color={colors.gray600} />
               <Text weight="light">Zavolat</Text>
             </ListItem>
-            <ListItem
-              bottomDivider
-              containerStyle={styles.listItem}
-              onPress={() => operations.handleCallPbx(models.number)}
-              disabled={models.loading}
-            >
-              <Icon name="call" size={layout.font.small} color={colors.gray600} />
-              <Text weight="light">Zavolat přes PBX</Text>
-            </ListItem>
+
+            {models.loading ? (
+              <Loader size="small" />
+            ) : (
+              <ListItem
+                bottomDivider
+                containerStyle={styles.listItem}
+                onPress={() => operations.handleCallPbx(models.number)}
+              >
+                <Icon name="call" size={layout.font.small} color={colors.gray600} />
+                <Text weight="light">Zavolat přes PBX</Text>
+              </ListItem>
+            )}
           </>
         </Overlay>
       </View>

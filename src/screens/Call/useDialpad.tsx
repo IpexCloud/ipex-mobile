@@ -30,6 +30,7 @@ const useContacts: Architecture.ConcernSeparationHook<DialpadOperations, Dialpad
   const handleCallPbx = async (number: string) => {
     await commands.callPbx(number)
     setDialpadNumber('')
+    setModalVisible(false)
   }
 
   const handleToggleModal = () => {
