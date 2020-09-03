@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Icon from 'react-native-vector-icons/Ionicons'
+import { Icon } from 'react-native-elements'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -70,7 +70,9 @@ export function TabsNavigator() {
         name="Contacts"
         component={ContactsNavigator}
         options={{
-          tabBarIcon: ({ color, size }) => <Icon name="people" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="people" color={color} size={size} type="ionicon" />
+          ),
         }}
       />
 
@@ -86,7 +88,9 @@ export function TabsNavigator() {
         name="Callcenter"
         component={Callcenter}
         options={{
-          tabBarIcon: ({ color, size }) => <Icon name="headset" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="headset" color={color} size={size} type="ionicon" />
+          ),
         }}
       />
     </Tab.Navigator>

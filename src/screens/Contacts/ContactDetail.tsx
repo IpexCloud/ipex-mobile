@@ -37,7 +37,9 @@ const ContactDetail = (props: Props) => {
           <Text weight="medium" size="xsmall">
             {phoneTypesMap[item.type]}
           </Text>
-          <Text weight="light" style={styles.number}>{item.number}</Text>
+          <Text weight="light" style={styles.number}>
+            {item.number}
+          </Text>
         </View>
         <Icon name="call" size={layout.font.large} color={colors.gray300} />
       </View>

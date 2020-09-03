@@ -61,9 +61,6 @@ const theme = {
     },
   },
   Avatar: {
-    titleStyle: {
-      fontFamily: 'Graphik-Regular',
-    },
     overlayContainerStyle: {
       backgroundColor: colors.gray300,
     },
