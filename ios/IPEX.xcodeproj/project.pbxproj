@@ -12,11 +12,14 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		15EADD542C364EC58F2287C0 /* Graphik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6D28AB1D171441CBBE14CF9 /* Graphik-Bold.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* IPEXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* IPEXTests.m */; };
 		49AA0E783D376A202CE72358 /* libPods-IPEX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 158C5B124C6FBD47C8EFE60C /* libPods-IPEX.a */; };
 		6E319EA524F9389C00248534 /* Graphik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E319EA124F9389B00248534 /* Graphik-Bold.ttf */; };
+		6EC9CA702514F7C2005324AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		6EC9CA712514F7DB005324AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		6EC9CA722514F7DC005324AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		6EC9CA732514F7DC005324AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		6EE3860324FE7315006E0099 /* Graphik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 35A4500A959E42DC9831F1B1 /* Graphik-Light.ttf */; };
 		6EE3860424FE7323006E0099 /* Graphik-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 16CF3C66403D40FFAC2E27F1 /* Graphik-Medium.ttf */; };
 		6EE3860524FE732E006E0099 /* Graphik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD6F75B268864C5A949FE313 /* Graphik-Regular.ttf */; };
@@ -337,7 +340,9 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = J53G24V2HD;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -377,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				15EADD542C364EC58F2287C0 /* Graphik-Bold.ttf in Resources */,
+				6EC9CA712514F7DB005324AE /* Images.xcassets in Resources */,
 				FA4D56B24F774AD3A9AAC24D /* Graphik-Light.ttf in Resources */,
 				CBCCCAF8486840E5ADD2D1C4 /* Graphik-Medium.ttf in Resources */,
 				7C570A48FB0C432A99975CEB /* Graphik-Regular.ttf in Resources */,
@@ -387,7 +393,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
+				6EC9CA722514F7DC005324AE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +401,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EC9CA732514F7DC005324AE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EE3860524FE732E006E0099 /* Graphik-Regular.ttf in Resources */,
+				6EC9CA702514F7C2005324AE /* Images.xcassets in Resources */,
 				6EE3860424FE7323006E0099 /* Graphik-Medium.ttf in Resources */,
 				6EE3860324FE7315006E0099 /* Graphik-Light.ttf in Resources */,
 				6E319EA524F9389C00248534 /* Graphik-Bold.ttf in Resources */,
@@ -724,7 +732,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J53G24V2HD;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = IPEX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -733,8 +744,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ipex.mobile.app;
 				PRODUCT_NAME = IPEX;
+				PROVISIONING_PROFILE_SPECIFIER = "IPEX mobile app";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -747,7 +759,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J53G24V2HD;
 				INFOPLIST_FILE = IPEX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -755,8 +770,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ipex.mobile.app;
 				PRODUCT_NAME = IPEX;
+				PROVISIONING_PROFILE_SPECIFIER = "IPEX mobile app";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
