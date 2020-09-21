@@ -11,6 +11,7 @@ import { Avatar, Divider } from 'react-native-elements'
 import { Text } from '../../components/common'
 import { useLoginService } from '../../services/useLoginService'
 import { useGlobalContext, useGlobalDispatch } from '../../context'
+import layout from '../../constants/layout'
 
 export default function DrawerContent(props: DrawerContentComponentProps) {
   const {
@@ -28,7 +29,7 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
             rounded
             title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
           />
-          <Text style={styles.title} weight="regular" size="large">
+          <Text style={styles.title} weight="medium" size="large">
             {firstName} {lastName}
           </Text>
           <Text style={styles.caption} size="xsmall">
@@ -38,7 +39,7 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
         <Divider style={styles.divider} />
         <DrawerItem
           icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
-          label="Odhlásit"
+          label={() => <Text size="xsmall">Odhlásit</Text>}
           onPress={() => {
             dispatch({ type: 'auth/login', payload: {} })
             commands.logout()
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   caption: {
+    marginTop: layout.font.xsmall / 2,
     lineHeight: 24,
   },
   divider: {

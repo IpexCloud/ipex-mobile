@@ -5,7 +5,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { CompositeNavigationProp } from '@react-navigation/native'
 
 import { ScreenTitle, Loader, Appbar, Error } from '../../components/common'
-import { CallcenterSettings } from '../../components'
+import { CallcenterSettings, AgentStats } from '../../components'
 import colors from '../../constants/colors'
 import useCallcenter from './useCallcenter'
 
@@ -39,11 +39,14 @@ const Callcenter = (props: Props) => {
         {models.pauses.loading || models.agent.loading ? (
           <Loader />
         ) : (
-          <CallcenterSettings
-            pauseOptions={models.pauses.data}
-            agent={models.agent.data}
-            onPauseChange={operations.handlePauseChange}
-          />
+          <>
+            <CallcenterSettings
+              pauseOptions={models.pauses.data}
+              agent={models.agent.data}
+              onPauseChange={operations.handlePauseChange}
+            />
+            <AgentStats agent={models.agent.data} />
+          </>
         )}
       </ScrollView>
     </>

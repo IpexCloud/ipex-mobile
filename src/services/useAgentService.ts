@@ -5,6 +5,15 @@ import { useGlobalContext } from '../context'
 
 export type AgentServiceData =
   | {
+      callsTaken: number
+      outgoingCallsAnswered: number
+      outgoingCallsUnanswered: number
+      cbCalls: number
+      talkTime: number
+      logonTime: string
+      ringNoAnswer: number
+      billPauseTime: number
+      nonBillPauseTime: number
       paused: boolean
       pausedReason: string
     }
@@ -22,8 +31,17 @@ const useAgentService: Architecture.ServiceHook<AgentQueries, {}> = () => {
     const agentDetail = await query(`
         query Agent {
           agents(userId: "${auth.userId}") {
-              paused
-              pausedReason
+            callsTaken
+            outgoingCallsAnswered
+            outgoingCallsUnanswered
+            cbCalls
+            talkTime
+            logonTime
+            ringNoAnswer
+            billPauseTime
+            nonBillPauseTime
+            paused
+            pausedReason
           }
         }
       `)

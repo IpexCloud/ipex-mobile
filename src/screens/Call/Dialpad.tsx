@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native'
 import { useFocusEffect } from '@react-navigation/native'
 
 import { ContactsNavigatorParamList } from '../../navigation/tabs/TabsNavigator'
-import { Text, Loader } from '../../components/common'
+import { Text, Loader, ScreenTitle, Appbar } from '../../components/common'
 import colors from '../../constants/colors'
 import layout from '../../constants/layout'
 import useDialpad from './useDialpad'
@@ -39,60 +39,66 @@ const Dialpad = (props: Props) => {
   }, [models.error])
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.screen}>
-        <Input
-          ref={input}
-          value={models.number}
-          autoCapitalize="none"
-          autoCorrect={false}
-          keyboardType="phone-pad"
-          inputStyle={styles.dialpadInputStyle}
-          containerStyle={{ marginVertical: layout.font.medium }}
-          onChangeText={(number: string) => operations.handleNumberChange(number)}
-          clearButtonMode="always"
-        />
-        <Icon
-          name="call"
-          size={layout.window.width / 10}
-          onPress={operations.handleToggleModal}
-          color={colors.background}
-          containerStyle={styles.callIcon}
-        />
-        <Overlay
-          isVisible={models.modalVisible}
-          onBackdropPress={operations.handleToggleModal}
-          overlayStyle={styles.overlay}
-        >
-          <>
-            <Text style={styles.callNumberLabel} weight="medium">
-              {models.number}
-            </Text>
-            <ListItem
-              bottomDivider
-              containerStyle={styles.listItem}
-              onPress={() => operations.handleCallNow(models.number)}
-            >
-              <Icon name="phone-iphone" size={layout.font.small} color={colors.gray600} />
-              <Text weight="light">Zavolat</Text>
-            </ListItem>
-
-            {models.loading ? (
-              <Loader size="small" />
-            ) : (
+    <>
+      <Appbar {...props} />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.screen}>
+          <View style={styles.inputContainer}>
+            <ScreenTitle text="Vytočit" />
+            <Input
+              ref={input}
+              value={models.number}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="phone-pad"
+              inputStyle={styles.dialpadInputStyle}
+              containerStyle={{ marginVertical: layout.font.medium }}
+              onChangeText={(number: string) => operations.handleNumberChange(number)}
+              clearButtonMode="always"
+            />
+          </View>
+          <Icon
+            name="call"
+            size={layout.window.width / 10}
+            onPress={operations.handleToggleModal}
+            color={colors.background}
+            containerStyle={styles.callIcon}
+          />
+          <Overlay
+            isVisible={models.modalVisible}
+            onBackdropPress={operations.handleToggleModal}
+            overlayStyle={styles.overlay}
+          >
+            <>
+              <Text style={styles.callNumberLabel} weight="medium">
+                {models.number}
+              </Text>
               <ListItem
                 bottomDivider
                 containerStyle={styles.listItem}
-                onPress={() => operations.handleCallPbx(models.number)}
+                onPress={() => operations.handleCallNow(models.number)}
               >
-                <Icon name="call" size={layout.font.small} color={colors.gray600} />
-                <Text weight="light">Zavolat přes PBX</Text>
+                <Icon name="phone-iphone" size={layout.font.small} color={colors.gray600} />
+                <Text weight="light">Zavolat</Text>
               </ListItem>
-            )}
-          </>
-        </Overlay>
-      </View>
-    </TouchableWithoutFeedback>
+
+              {models.loading ? (
+                <Loader size="small" />
+              ) : (
+                <ListItem
+                  bottomDivider
+                  containerStyle={styles.listItem}
+                  onPress={() => operations.handleCallPbx(models.number)}
+                >
+                  <Icon name="call" size={layout.font.small} color={colors.gray600} />
+                  <Text weight="light">Zavolat přes PBX</Text>
+                </ListItem>
+              )}
+            </>
+          </Overlay>
+        </View>
+      </TouchableWithoutFeedback>
+    </>
   )
 }
 
@@ -102,7 +108,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: layout.font.xlarge * 2,
+  },
+  inputContainer: {
+    alignItems: 'flex-start',
+    width: '100%',
   },
   dialpadInputStyle: {
     textAlign: 'center',

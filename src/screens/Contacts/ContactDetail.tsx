@@ -34,7 +34,7 @@ const ContactDetail = (props: Props) => {
     >
       <View style={styles.listItem} key={item.number}>
         <View>
-          <Text weight="medium" size="xsmall">
+          <Text weight="regular" size="xsmall">
             {phoneTypesMap[item.type]}
           </Text>
           <Text weight="light" style={styles.number}>
@@ -55,7 +55,7 @@ const ContactDetail = (props: Props) => {
           title={contact.firstName[0].toUpperCase() + contact.lastName[0].toUpperCase()}
         />
         <View style={styles.textContainer}>
-          <Text size={'xlarge'} weight={'medium'}>
+          <Text size="xlarge" weight="regular">
             {contact.firstName} {contact.lastName}
           </Text>
         </View>
