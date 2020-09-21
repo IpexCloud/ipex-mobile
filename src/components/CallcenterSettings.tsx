@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { View, StyleSheet, TouchableWithoutFeedback, Platform } from 'react-native'
 import { Button, Overlay } from 'react-native-elements'
 import { PausesServiceData, AgentServiceData } from '../services'
 import Picker from './common/Picker'
@@ -50,7 +50,7 @@ const CallcenterSettings = (props: Props) => {
           <Picker
             value={props.agent.paused ? props.agent.pausedReason : 'no-pause'}
             options={pauseOptions}
-            onChange={(value) => props.onPauseChange(value)}
+            onSelect={(value) => props.onPauseChange(value)}
           />
         </>
       </Overlay>
@@ -67,11 +67,21 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   button: {
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 0,
     borderRadius: 5,
-    backgroundColor: 'white',
+    height: '95%',
+    borderWidth: 0.5,
+    borderColor: colors.gray300,
+    ...Platform.select({
+      ios: {
+        shadowColor: colors.gray600,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
   buttonTitle: {
     textAlign: 'center',
