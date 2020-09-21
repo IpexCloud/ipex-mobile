@@ -15,7 +15,7 @@ const AgentStatsRow = ({ label, value }: { label: string; value: number | string
         <Text size="xsmall" weight="light" style={{ color: colors.gray600 }}>
           {label}
         </Text>
-        <Text size="xsmall" weight="light">
+        <Text size="xsmall" weight="regular">
           {value}
         </Text>
       </View>
