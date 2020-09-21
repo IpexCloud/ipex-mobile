@@ -56,6 +56,10 @@ const theme = {
     },
   },
   SearchBar: {
+    inputContainerStyle: {
+      backgroundColor: colors.gray200,
+      borderRadius: 5,
+    },
     inputStyle: {
       fontFamily: 'Graphik-Regular',
     },

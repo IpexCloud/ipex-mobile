@@ -7,7 +7,7 @@ type Props = {
     value: string
   }[]
   value: string
-  onChange: (value: string, index: number) => void
+  onSelect: (value: string, index: number) => void
   disabled?: boolean
 }
 
@@ -15,7 +15,7 @@ export default function CustomPicker(props: Props) {
   return (
     <Picker
       selectedValue={props.value}
-      onValueChange={(itemValue, itemIndex) => props.onChange(itemValue.toString(), itemIndex)}
+      onValueChange={(itemValue, itemIndex) => props.onSelect(itemValue.toString(), itemIndex)}
       enabled={!props.disabled}
       {...props}
     >

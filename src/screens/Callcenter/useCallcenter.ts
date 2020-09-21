@@ -31,11 +31,14 @@ const useCallcenter: Architecture.ConcernSeparationHook<
   const [refreshing, setRefreshing] = useState(false)
 
   const handlePauseChange = async (pause: string) => {
-    setAgentDetail({
-      paused: pause !== 'no-pause',
-      pausedReason: pause === 'no-pause' ? '' : pause,
-    })
-    await pauseCommands.change(pause)
+    if (agentDetail) {
+      setAgentDetail({
+        ...agentDetail,
+        paused: pause !== 'no-pause',
+        pausedReason: pause === 'no-pause' ? '' : pause,
+      })
+      await pauseCommands.change(pause)
+    }
   }
 
   const handleRefresh = async () => {
