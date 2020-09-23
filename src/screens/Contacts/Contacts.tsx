@@ -37,7 +37,12 @@ const Contacts = (props: Props) => {
   )
 
   if (models.contacts.error) {
-    return <Error />
+    return (
+      <>
+        <Appbar {...props} />
+        <Error />
+      </>
+    )
   }
 
   return (

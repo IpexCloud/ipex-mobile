@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { Provider, CachePolicies, IncomingOptions } from 'use-http'
+import { Provider, CachePolicies, IncomingOptions, Res } from 'use-http'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import config from '../../config'
@@ -29,10 +29,13 @@ export default function AppNavigator() {
         // Check if token is expired or will be in 1 minute
         if (new Date(auth.expiresAt) < new Date(new Date().getTime() + 60000)) {
           const credentials = await AsyncStorage.getItem('credentials')
+
           if (credentials) {
             const newLoginData = await commands.login(JSON.parse(credentials))
+
             if (newLoginData) {
               dispatch({ type: 'auth/login', payload: newLoginData })
+              // Update token in headers
               options = {
                 ...options,
                 headers: {
@@ -45,6 +48,12 @@ export default function AppNavigator() {
         }
 
         return options
+      },
+      response: async ({ response }: { response: Res<{ statusCode: number }> }) => {
+        if (response?.data?.statusCode === 401) {
+          await commands.logout()
+        }
+        return response
       },
     },
   }
