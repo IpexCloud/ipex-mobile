@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
+import { View, StyleSheet, TouchableWithoutFeedback, ScrollView } from 'react-native'
 import { Avatar, Icon } from 'react-native-elements'
 import { RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -29,7 +29,7 @@ const ContactDetail = (props: Props) => {
   }: {
     detail: { type: 'ip' | 'pev' | 'mob' | 'fax'; number: string }
   }) => (
-    <TouchableHighlight
+    <TouchableWithoutFeedback
       onPress={() => props.navigation.navigate('Dialpad', { number: detail.number })}
     >
       <View style={styles.listItem} key={detail.number}>
@@ -43,7 +43,7 @@ const ContactDetail = (props: Props) => {
         </View>
         <Icon name="call" size={layout.font.large} color={colors.gray300} />
       </View>
-    </TouchableHighlight>
+    </TouchableWithoutFeedback>
   )
 
   return (
