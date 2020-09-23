@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, ScrollView, RefreshControl } from 'react-native'
+import { StyleSheet, ScrollView, RefreshControl, View } from 'react-native'
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
 import { CompositeNavigationProp } from '@react-navigation/native'
@@ -29,26 +29,33 @@ const Callcenter = (props: Props) => {
   return (
     <>
       <Appbar {...props} />
-      <ScrollView
-        contentContainerStyle={styles.screen}
-        refreshControl={
-          <RefreshControl refreshing={models.refreshing} onRefresh={operations.handleRefresh} />
-        }
-      >
-        <ScreenTitle text="Call centrum" />
-        {models.pauses.loading || models.agent.loading ? (
-          <Loader />
-        ) : (
-          <>
-            <CallcenterSettings
-              pauseOptions={models.pauses.data}
-              agent={models.agent.data}
-              onPauseChange={operations.handlePauseChange}
+      <View style={styles.screen}>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={models.refreshing}
+              onRefresh={operations.handleRefresh}
+              colors={[colors.primary]}
             />
-            <AgentStats agent={models.agent.data} />
-          </>
-        )}
-      </ScrollView>
+          }
+          contentContainerStyle={styles.scroll}
+        >
+          <ScreenTitle text="Call centrum" />
+          {models.pauses.loading || models.agent.loading ? (
+            <Loader />
+          ) : (
+            <>
+              <CallcenterSettings
+                pauseOptions={models.pauses.data}
+                agent={models.agent.data}
+                onPauseChange={operations.handlePauseChange}
+              />
+              <AgentStats agent={models.agent.data} />
+            </>
+          )}
+        </ScrollView>
+      </View>
     </>
   )
 }
@@ -57,6 +64,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingHorizontal: '2.5%',
+  },
+  scroll: {
+    minHeight: '100%',
   },
 })
 

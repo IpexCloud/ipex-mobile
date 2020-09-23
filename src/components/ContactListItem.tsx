@@ -1,11 +1,38 @@
-import * as React from 'react'
+import React from 'react'
 import { View, StyleSheet, ImageURISource, TouchableHighlight } from 'react-native'
-
 import { Avatar } from 'react-native-elements'
+
 import { Text } from './common'
 import colors from '../constants/colors'
 
-const contactListItemStyles = StyleSheet.create({
+type ContactListItemProps = {
+  firstName: string
+  lastName: string
+  avatarSource?: ImageURISource
+  onPress?: () => void
+}
+
+const ContactListItem = ({ avatarSource, firstName, lastName, onPress }: ContactListItemProps) => {
+  return (
+    <TouchableHighlight onPress={onPress}>
+      <View style={styles.container}>
+        <Avatar
+          rounded
+          size="medium"
+          title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
+          source={avatarSource}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.contactName} size="small" weight="regular">
+            {firstName} {lastName}
+          </Text>
+        </View>
+      </View>
+    </TouchableHighlight>
+  )
+}
+
+const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -23,34 +50,5 @@ const contactListItemStyles = StyleSheet.create({
     lineHeight: 26,
   },
 })
-
-type ContactListItemProps = {
-  firstName: string
-  lastName: string
-  avatarSource?: ImageURISource
-  onPress?: () => void
-}
-
-const ContactListItem = ({ avatarSource, firstName, lastName, onPress }: ContactListItemProps) => {
-  return (
-    <>
-      <TouchableHighlight onPress={onPress}>
-        <View style={contactListItemStyles.container}>
-          <Avatar
-            rounded
-            size="medium"
-            title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
-            source={avatarSource}
-          />
-          <View style={contactListItemStyles.textContainer}>
-            <Text style={contactListItemStyles.contactName} size="small" weight="regular">
-              {firstName} {lastName}
-            </Text>
-          </View>
-        </View>
-      </TouchableHighlight>
-    </>
-  )
-}
 
 export default ContactListItem

@@ -12,6 +12,7 @@ import { Text } from '../../components/common'
 import { useLoginService } from '../../services/useLoginService'
 import { useGlobalContext, useGlobalDispatch } from '../../context'
 import layout from '../../constants/layout'
+import colors from '../../constants/colors'
 
 export default function DrawerContent(props: DrawerContentComponentProps) {
   const {
@@ -38,7 +39,7 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
         </View>
         <Divider style={styles.divider} />
         <DrawerItem
-          icon={({ color, size }) => <Icon name="log-out-outline" color={color} size={size} />}
+          icon={({ size }) => <Icon name="log-out-outline" color={colors.black} size={size} />}
           label={() => <Text size="xsmall">Odhlásit</Text>}
           onPress={() => {
             dispatch({ type: 'auth/login', payload: {} })

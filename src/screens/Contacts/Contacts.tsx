@@ -44,7 +44,7 @@ const Contacts = (props: Props) => {
     <>
       <Appbar {...props} />
       <TouchableWithoutFeedback onPress={operations.handleContainerPress}>
-        <View style={styles.container}>
+        <View style={styles.screen}>
           <ScreenTitle text="Kontakty" />
           {models.contacts.loading ? (
             <Loader />
@@ -70,7 +70,7 @@ const Contacts = (props: Props) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
     backgroundColor: colors.background,
   },

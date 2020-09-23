@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { View, StyleSheet, FlatList, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, TouchableHighlight, ScrollView } from 'react-native'
 import { Avatar, Icon } from 'react-native-elements'
 import { RouteProp } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -24,21 +24,21 @@ const phoneTypesMap = {
 const ContactDetail = (props: Props) => {
   const contact = props.route.params
 
-  const renderPhoneNumber = ({
-    item,
+  const PhoneNumber = ({
+    detail,
   }: {
-    item: { type: 'ip' | 'pev' | 'mob' | 'fax'; number: string }
+    detail: { type: 'ip' | 'pev' | 'mob' | 'fax'; number: string }
   }) => (
     <TouchableHighlight
-      onPress={() => props.navigation.navigate('Dialpad', { number: item.number })}
+      onPress={() => props.navigation.navigate('Dialpad', { number: detail.number })}
     >
-      <View style={styles.listItem} key={item.number}>
+      <View style={styles.listItem} key={detail.number}>
         <View>
           <Text weight="regular" size="xsmall">
-            {phoneTypesMap[item.type]}
+            {phoneTypesMap[detail.type]}
           </Text>
           <Text weight="light" style={styles.number}>
-            {item.number}
+            {detail.number}
           </Text>
         </View>
         <Icon name="call" size={layout.font.large} color={colors.gray300} />
@@ -47,8 +47,8 @@ const ContactDetail = (props: Props) => {
   )
 
   return (
-    <>
-      <View style={styles.screen}>
+    <View style={styles.screen}>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
         <Avatar
           rounded
           size="xlarge"
@@ -60,14 +60,12 @@ const ContactDetail = (props: Props) => {
           </Text>
         </View>
         <View style={styles.list}>
-          <FlatList
-            data={contact.phoneNumbers}
-            renderItem={renderPhoneNumber}
-            keyExtractor={({ number }) => number}
-          />
+          {contact.phoneNumbers.map((phoneNumber) => (
+            <PhoneNumber detail={phoneNumber} key={phoneNumber.number} />
+          ))}
         </View>
-      </View>
-    </>
+      </ScrollView>
+    </View>
   )
 }
 
@@ -75,8 +73,10 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingTop: layout.font.xlarge * 2,
+  },
+  scroll: {
     alignItems: 'center',
-    paddingTop: layout.font.large,
   },
   textContainer: {
     justifyContent: 'center',

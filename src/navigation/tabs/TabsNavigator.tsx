@@ -3,9 +3,9 @@ import { Icon } from 'react-native-elements'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import colors from '../../constants/colors'
 import { Contacts, Callcenter, ContactDetail, Dialpad } from '../../screens'
 import { Contact } from '../../services'
+import colors from '../../constants/colors'
 import layout from '../../constants/layout'
 
 export type TabsNavigatorParamList = {
@@ -35,8 +35,6 @@ const ContactsNavigator = () => {
         headerStyle: {
           height: layout.window.height / 8,
           backgroundColor: colors.background,
-          elevation: 0,
-          shadowOpacity: 0,
         },
       }}
     >
@@ -48,7 +46,7 @@ const ContactsNavigator = () => {
       <ContactsStackNavigator.Screen
         name="ContactDetail"
         component={ContactDetail}
-        options={{ headerTitle: '' }}
+        options={{ headerTitle: '', headerTransparent: true }}
       />
     </ContactsStackNavigator.Navigator>
   )

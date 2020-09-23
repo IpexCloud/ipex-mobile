@@ -5,24 +5,22 @@ import { Divider } from 'react-native-elements'
 import { AgentServiceData } from '../services'
 import colors from '../constants/colors'
 import layout from '../constants/layout'
-import { Loader, Text } from './common'
+import { Text } from './common'
 import { formatSeconds, formatDate } from '../lib/utils'
 
-const AgentStatsRow = ({ label, value }: { label: string; value: number | string }) => {
-  return (
-    <>
-      <View style={styles.statsRow}>
-        <Text size="xsmall" weight="light" style={{ color: colors.gray600 }}>
-          {label}
-        </Text>
-        <Text size="xsmall" weight="regular">
-          {value}
-        </Text>
-      </View>
-      <Divider style={styles.divider} />
-    </>
-  )
-}
+const AgentStatsRow = ({ label, value }: { label: string; value: number | string }) => (
+  <>
+    <View style={styles.statsRow}>
+      <Text size="xsmall" weight="light" style={{ color: colors.gray600 }}>
+        {label}
+      </Text>
+      <Text size="xsmall" weight="regular">
+        {value}
+      </Text>
+    </View>
+    <Divider style={styles.divider} />
+  </>
+)
 
 type Props = {
   agent: AgentServiceData
@@ -30,8 +28,9 @@ type Props = {
 
 const AgentStats = (props: Props) => {
   const { agent } = props
+
   if (!agent) {
-    return <Loader />
+    return null
   }
 
   const agentStats = [
@@ -57,17 +56,13 @@ const AgentStats = (props: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 10,
-    marginHorizontal: '2.5%',
     marginTop: layout.font.xsmall,
-    borderRadius: 5,
   },
   statsRow: {
-    alignItems: 'center',
-    marginVertical: layout.font.xsmall,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '100%',
+    alignItems: 'center',
+    marginVertical: layout.font.xsmall,
   },
   divider: {
     backgroundColor: colors.gray200,

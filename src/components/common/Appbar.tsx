@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { StyleSheet, ActivityIndicator } from 'react-native'
 import { Header, Avatar, Image } from 'react-native-elements'
 import { DrawerNavigationProp } from '@react-navigation/drawer'
@@ -57,7 +57,17 @@ const AppbarLogo = () => {
 }
 
 const Appbar = (props: AppbarProps) => (
-  <Header leftComponent={<AppbarAvatar {...props} />} centerComponent={<AppbarLogo />} />
+  <Header
+    leftComponent={<AppbarAvatar {...props} />}
+    centerComponent={<AppbarLogo />}
+    containerStyle={appbarStyles.container}
+  />
 )
+
+const appbarStyles = StyleSheet.create({
+  container: {
+    elevation: 0,
+  },
+})
 
 export default Appbar
