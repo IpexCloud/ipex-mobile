@@ -2,6 +2,7 @@ import moment from 'moment'
 
 const formatDate = (date: string | undefined) => {
   if (!date) return '--:--'
+  date = new Date(date).toISOString()
   const isToday = moment(date).isSame(moment(), 'day')
   if (isToday) return moment(date).format('H:mm')
   const isPreviousYear = !moment(date).isSame(moment(), 'year')
