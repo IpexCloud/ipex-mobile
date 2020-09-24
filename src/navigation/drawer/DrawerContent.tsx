@@ -11,6 +11,7 @@ import { Avatar, Divider } from 'react-native-elements'
 import { Text } from '../../components/common'
 import { useLoginService } from '../../services/useLoginService'
 import { useGlobalContext, useGlobalDispatch } from '../../context'
+import { capitalizeFirstLetter } from '../../lib/utils'
 import layout from '../../constants/layout'
 import colors from '../../constants/colors'
 
@@ -28,7 +29,7 @@ export default function DrawerContent(props: DrawerContentComponentProps) {
           <Avatar
             size="large"
             rounded
-            title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
+            title={capitalizeFirstLetter(firstName) + capitalizeFirstLetter(lastName)}
           />
           <Text style={styles.title} weight="medium" size="large">
             {firstName} {lastName}

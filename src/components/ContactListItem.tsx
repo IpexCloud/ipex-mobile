@@ -4,9 +4,10 @@ import { Avatar } from 'react-native-elements'
 
 import { Text } from './common'
 import colors from '../constants/colors'
+import { capitalizeFirstLetter } from '../lib/utils'
 
 type ContactListItemProps = {
-  firstName: string
+  firstName?: string
   lastName: string
   avatarSource?: ImageURISource
   onPress?: () => void
@@ -19,7 +20,7 @@ const ContactListItem = ({ avatarSource, firstName, lastName, onPress }: Contact
         <Avatar
           rounded
           size="medium"
-          title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
+          title={capitalizeFirstLetter(firstName) + capitalizeFirstLetter(lastName)}
           source={avatarSource}
         />
         <View style={styles.textContainer}>

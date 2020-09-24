@@ -7,6 +7,7 @@ import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
 import { useGlobalContext } from '../../context'
 import layout from '../../constants/layout'
+import { capitalizeFirstLetter } from '../../lib/utils'
 
 import { TabsNavigatorParamList } from '../../navigation/tabs/TabsNavigator'
 import { DrawerParamList } from '../../navigation/drawer/DrawerNavigator'
@@ -33,7 +34,7 @@ const AppbarAvatar = (props: AppbarProps) => {
     <Avatar
       rounded
       containerStyle={appbarAvatarStyles.avatar}
-      title={firstName[0].toUpperCase() + lastName[0].toUpperCase()}
+      title={capitalizeFirstLetter(firstName) + capitalizeFirstLetter(lastName)}
       onPress={() => props.navigation.toggleDrawer()}
     />
   )

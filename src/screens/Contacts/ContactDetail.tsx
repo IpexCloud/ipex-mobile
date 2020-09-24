@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 
 import { ContactsNavigatorParamList } from '../../navigation/tabs/TabsNavigator'
 import { Text } from '../../components/common'
+import { capitalizeFirstLetter } from '../../lib/utils'
 import colors from '../../constants/colors'
 import layout from '../../constants/layout'
 
@@ -52,7 +53,7 @@ const ContactDetail = (props: Props) => {
         <Avatar
           rounded
           size="xlarge"
-          title={contact.firstName[0].toUpperCase() + contact.lastName[0].toUpperCase()}
+          title={capitalizeFirstLetter(contact.firstName) + capitalizeFirstLetter(contact.lastName)}
         />
         <View style={styles.textContainer}>
           <Text size="xlarge" weight="regular">

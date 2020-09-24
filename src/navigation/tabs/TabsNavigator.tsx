@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { Contacts, Callcenter, ContactDetail, Dialpad } from '../../screens'
 import { Contact } from '../../services'
+import { useGlobalContext } from '../../context'
+
 import colors from '../../constants/colors'
 import layout from '../../constants/layout'
 
@@ -53,6 +55,10 @@ const ContactsNavigator = () => {
 }
 
 export function TabsNavigator() {
+  const { auth } = useGlobalContext()
+  const callcentrumEnabled =
+    auth.pbxRoles.includes('pbx_agent') || auth.pbxRoles.includes('pbx_supervisor')
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -82,15 +88,17 @@ export function TabsNavigator() {
         }}
       />
 
-      <Tab.Screen
-        name="Callcenter"
-        component={Callcenter}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="headset" color={color} size={size} type="ionicon" />
-          ),
-        }}
-      />
+      {callcentrumEnabled && (
+        <Tab.Screen
+          name="Callcenter"
+          component={Callcenter}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="headset" color={color} size={size} type="ionicon" />
+            ),
+          }}
+        />
+      )}
     </Tab.Navigator>
   )
 }

@@ -1,7 +1,8 @@
-import { useFetch } from 'use-http'
+import { useFetch, CachePolicies } from 'use-http'
 import AsyncStorage from '@react-native-community/async-storage'
-import config from '../../config'
+
 import { Architecture } from '../lib/types'
+import config from '../../config'
 
 export type LoginServiceData = {
   authToken: string
@@ -19,7 +20,9 @@ export type LoginCommands = {
 }
 
 const useLoginService: Architecture.ServiceHook<{}, LoginCommands> = () => {
-  const { post, response, loading, error } = useFetch(`${config.CENTRAL_API_URL}/v1/sso/login`)
+  const { post, response, loading, error } = useFetch(`${config.CENTRAL_API_URL}/v1/sso/login`, {
+    cachePolicy: CachePolicies.NETWORK_ONLY,
+  })
 
   const login = async (credentials: { email: string; password: string }) => {
     const loginData = await post(credentials)
@@ -35,6 +38,11 @@ const useLoginService: Architecture.ServiceHook<{}, LoginCommands> = () => {
         pbxRoles: loginData.pbxRoles || [],
         expiresAt: loginData.expiresAt || '',
       }
+      // User has no PBX service assigned
+      if (!userData.pbxRoles.includes('pbx_user')) {
+        return undefined
+      }
+
       await AsyncStorage.setItem('userData', JSON.stringify(userData))
       return userData
     }

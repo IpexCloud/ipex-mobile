@@ -13,4 +13,9 @@ const formatSeconds = (date: number, format = 'H[h] m[m] ss[s]') => {
   return moment.utc(date).format(format)
 }
 
-export { formatSeconds, formatDate }
+const capitalizeFirstLetter = (string: string | undefined | null) => {
+  if (typeof string !== 'string') return ''
+  return string.charAt(0).toUpperCase()
+}
+
+export { formatSeconds, formatDate, capitalizeFirstLetter }
